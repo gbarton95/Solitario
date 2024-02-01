@@ -29,8 +29,10 @@ let mazo_inicial = [];
     }
 
 
-
+//Mazo de sobrantes
 let mazo_sobrantes = [];
+
+//Mazos inferiores
 let mazo_receptor1 = [];
 let mazo_receptor2 = [];
 let mazo_receptor3 = [];
@@ -211,4 +213,6 @@ function set_contador(contador, valor) {
 
 // Desarrollo de la continuación del juego
 // Funciones drag & drop
+
+
 /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
