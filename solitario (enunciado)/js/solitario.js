@@ -175,6 +175,7 @@ function cargar_tapete_inicial(mazo) {
 		img.style.left = paso * i + "px";
 		img.style.width = "100px";
 		img.style.height = "150px";
+		img.draggable = true;
 		tapete_inicial.appendChild(img);
 	}
 
