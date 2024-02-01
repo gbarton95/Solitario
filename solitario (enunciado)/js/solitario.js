@@ -157,6 +157,15 @@ function arrancar_tiempo(){
 
 function barajar(mazo) {
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+	for (let i = mazo.length - 1; i > 0; i--) {
+        // Generar un numero aleatorio entre 0 e i
+        let j = Math.floor(Math.random() * (i + 1));
+
+        // Los intercambiamos guardando en una variable extra
+        let temp = mazo[i];
+        mazo[i] = mazo[j];
+        mazo[j] = temp;
+    }
 } // barajar
 
 
@@ -169,11 +178,16 @@ function barajar(mazo) {
 	Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial(mazo) {
-
-
-
-
-
+	for(var i = 0; i<mazo.length; i++){
+		var img = document.createElement("img");
+		img.src = mazo[i];
+		img.style.position = "absolute";
+		img.style.top = paso * i + "px";
+		img.style.left = paso * i + "px";
+		img.style.width = "100px";
+		img.style.height = "150px";
+		tapete_inicial.appendChild(img);
+	}
 
 } // cargar_tapete_inicial
 
