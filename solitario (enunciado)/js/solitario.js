@@ -39,16 +39,16 @@ let mazo_receptor3 = [];
 let mazo_receptor4 = [];
 
 // Contadores de cartas
-let cont_inicial     = document.getElementById("cont_inicial");
-let cont_sobrantes   = document.getElementById("cont_sobrantes");
-let cont_receptor1   = document.getElementById("cont_receptor1");
-let cont_receptor2   = document.getElementById("cont_receptor2");
-let cont_receptor3   = document.getElementById("cont_receptor3");
-let cont_receptor4   = document.getElementById("cont_receptor4");
-let cont_movimientos = document.getElementById("cont_movimientos");
+let cont_inicial     = document.getElementById("contador_inicial");
+let cont_sobrantes   = document.getElementById("contador_sobrantes");
+let cont_receptor1   = document.getElementById("contador_receptor1");
+let cont_receptor2   = document.getElementById("contador_receptor2");
+let cont_receptor3   = document.getElementById("contador_receptor3");
+let cont_receptor4   = document.getElementById("contador_receptor4");
+let cont_movimientos = document.getElementById("contador_movimientos");
 
 // Tiempo
-let cont_tiempo  = document.getElementById("cont_tiempo"); // span cuenta tiempo
+let cont_tiempo  = document.getElementById("contador_tiempo"); // span cuenta tiempo
 let segundos 	 = 0;    // cuenta de segundos
 let temporizador = null; // manejador del temporizador
 
@@ -185,7 +185,7 @@ function cargar_tapete_inicial(mazo) {
    	del elemento que actúa de contador
 */
 function inc_contador(contador){
-    contador.innerHTML = +contador.innerHTML + 1;
+    contador.innerHTML = contador.innerHTML + 1;
 
 
 
@@ -197,7 +197,7 @@ function inc_contador(contador){
 */
 function dec_contador(contador){
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
-
+	contador.innerHTML = contador.innerHTML - 1;
 
 
 
