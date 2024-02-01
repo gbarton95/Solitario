@@ -61,16 +61,6 @@ document.getElementById("reset").onclick = comenzar_juego;
 
 // Desarrollo del comienzo del juego
 function comenzar_juego() {
-	/* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos
-	elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
-	Sugerencia: en dos bucles "for", bárranse los "palos" y los "numeros", formando
-	oportunamente el nombre del fichero "png" que contiene a la carta (recuérdese poner
-	el "path" correcto en la URL asociada al atributo "src" de <img>). Una vez creado
-	el elemento <img>, inclúyase como elemento del array "mazo_inicial".
-	*/
-
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-
 
 	// Barajar
 	barajar(mazo_inicial);
@@ -155,10 +145,9 @@ function arrancar_tiempo(){
 
 */
 
+
 function barajar(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 	for (let i = mazo.length - 1; i > 0; i--) {
-        // Generar un numero aleatorio entre 0 e i
         let j = Math.floor(Math.random() * (i + 1));
 
         // Los intercambiamos guardando en una variable extra
@@ -166,15 +155,12 @@ function barajar(mazo) {
         mazo[i] = mazo[j];
         mazo[j] = temp;
     }
-} // barajar
+
+}
 
 
 
 /**
- 	En el elemento HTML que representa el tapete inicial (variable tapete_inicial)
-	se deben añadir como hijos todos los elementos <img> del array "mazo".
-	Antes de añadirlos, se deberían fijar propiedades como la anchura, la posición,
-	coordenadas "top" y "left", algun atributo de tipo "data-", etc.
 	Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial(mazo) {
@@ -198,6 +184,10 @@ function cargar_tapete_inicial(mazo) {
 */
 function inc_contador(contador){
     contador.innerHTML = +contador.innerHTML + 1;
+
+
+
+
 } // inc_contador
 
 /**
@@ -205,6 +195,10 @@ function inc_contador(contador){
 */
 function dec_contador(contador){
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
+
+
+
+
 } // dec_contador
 
 /**
