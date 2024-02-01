@@ -10,7 +10,7 @@ let numeros = [9, 10, 11, 12];
 // Paso (top y left) en pixeles de una carta a la siguiente en un mazo:
 let paso = 5;
 
-// Tapetes				
+// Tapetes
 let tapete_inicial   = document.getElementById("inicial");
 let tapete_sobrantes = document.getElementById("sobrantes");
 let tapete_receptor1 = document.getElementById("receptor1");
@@ -18,8 +18,18 @@ let tapete_receptor2 = document.getElementById("receptor2");
 let tapete_receptor3 = document.getElementById("receptor3");
 let tapete_receptor4 = document.getElementById("receptor4");
 
-// Mazos
-let mazo_inicial   = [];
+///////////////////////////////// Mazos ///////////////////////////////////
+
+//Mazo de partida
+let mazo_inicial = [];
+    for (let palo of palos) {
+      for (let numero of numeros) {
+        mazo_inicial.push("imagenes/baraja/"+ numero + "-" + palo + ".png");
+      }
+    }
+
+
+
 let mazo_sobrantes = [];
 let mazo_receptor1 = [];
 let mazo_receptor2 = [];
@@ -42,7 +52,7 @@ let temporizador = null; // manejador del temporizador
 
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
- 
+
 // Rutina asociada a boton reset: comenzar_juego
 document.getElementById("reset").onclick = comenzar_juego;
 
@@ -51,17 +61,17 @@ document.getElementById("reset").onclick = comenzar_juego;
 
 // Desarrollo del comienzo del juego
 function comenzar_juego() {
-	/* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
+	/* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos
 	elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
 	Sugerencia: en dos bucles "for", bárranse los "palos" y los "numeros", formando
 	oportunamente el nombre del fichero "png" que contiene a la carta (recuérdese poner
 	el "path" correcto en la URL asociada al atributo "src" de <img>). Una vez creado
-	el elemento <img>, inclúyase como elemento del array "mazo_inicial". 
+	el elemento <img>, inclúyase como elemento del array "mazo_inicial".
 	*/
-	
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/	
-    
-	
+
+	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+
+
 	// Barajar
 	barajar(mazo_inicial);
 
@@ -75,7 +85,7 @@ function comenzar_juego() {
 	set_contador(cont_receptor3, 0);
 	set_contador(cont_receptor4, 0);
 	set_contador(cont_movimientos, 0);
-	
+
 	// Arrancar el conteo de tiempo
 	arrancar_tiempo();
 
@@ -85,7 +95,7 @@ function comenzar_juego() {
 /**
 	Se debe encargar de arrancar el temporizador: cada 1000 ms se
 	debe ejecutar una función que a partir de la cuenta autoincrementada
-	de los segundos (segundos totales) visualice el tiempo oportunamente con el 
+	de los segundos (segundos totales) visualice el tiempo oportunamente con el
 	format hh:mm:ss en el contador adecuado.
 
 	Para descomponer los segundos en horas, minutos y segundos pueden emplearse
@@ -100,10 +110,10 @@ function comenzar_juego() {
 	Así, por ejemplo, si la cuenta de segundos totales es de 134 s, entonces será:
 	   00:02:14
 
-	Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que 
+	Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que
 	evitar que exista más de un temporizador simultáneo, por lo que debería guardarse
 	el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
-	a "clearInterval" en su caso.   
+	a "clearInterval" en su caso.
 */
 
 function arrancar_tiempo(){
@@ -113,8 +123,8 @@ function arrancar_tiempo(){
 			let seg = Math.trunc( segundos % 60 );
 			let min = Math.trunc( (segundos % 3600) / 60 );
 			let hor = Math.trunc( (segundos % 86400) / 3600 );
-			let tiempo = ( (hor<10)? "0"+hor : ""+hor ) 
-						+ ":" + ( (min<10)? "0"+min : ""+min )  
+			let tiempo = ( (hor<10)? "0"+hor : ""+hor )
+						+ ":" + ( (min<10)? "0"+min : ""+min )
 						+ ":" + ( (seg<10)? "0"+seg : ""+seg );
 			set_contador(cont_tiempo, tiempo);
             segundos++;
@@ -122,7 +132,7 @@ function arrancar_tiempo(){
 	segundos = 0;
     hms(); // Primera visualización 00:00:00
 	temporizador = setInterval(hms, 1000);
-    	
+
 } // arrancar_tiempo
 
 
@@ -134,15 +144,19 @@ function arrancar_tiempo(){
 	Para reordenar el array puede emplearse el siguiente pseudo código:
 
 	- Recorramos con i todos los elementos del array
-		- Sea j un indice cuyo valor sea un número aleatorio comprendido 
+		- Sea j un indice cuyo valor sea un número aleatorio comprendido
 			entre 0 y la longitud del array menos uno. Este valor aleatorio
 			puede conseguirse, por ejemplo con la instrucción JavaScript
 				Math.floor( Math.random() * LONGITUD_DEL_ARRAY );
 		- Se intercambia el contenido de la posición i-ésima con el de la j-ésima
 
+
+
+
 */
+
 function barajar(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/	
+	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 } // barajar
 
 
@@ -155,7 +169,12 @@ function barajar(mazo) {
 	Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/	
+
+
+
+
+
+
 } // cargar_tapete_inicial
 
 
@@ -168,10 +187,10 @@ function inc_contador(contador){
 } // inc_contador
 
 /**
-	Idem que anterior, pero decrementando 
+	Idem que anterior, pero decrementando
 */
 function dec_contador(contador){
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/	
+	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
 } // dec_contador
 
 /**
