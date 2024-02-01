@@ -206,6 +206,7 @@ function dec_contador(contador){
 */
 function set_contador(contador, valor) {
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
+	contador.innerHTML = valor;
 } // set_contador
 
 
