@@ -185,7 +185,7 @@ function cargar_tapete_inicial(mazo) {
    	del elemento que actúa de contador
 */
 function inc_contador(contador){
-    contador.innerHTML = +contador.innerHTML + 1;
+    contador.innerHTML = contador.innerHTML + 1;
 
 
 
@@ -197,7 +197,7 @@ function inc_contador(contador){
 */
 function dec_contador(contador){
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
-
+	contador.innerHTML = contador.innerHTML - 1;
 
 
 
