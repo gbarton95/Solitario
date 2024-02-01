@@ -84,32 +84,7 @@ function comenzar_juego() {
 } // comenzar_juego
 
 
-/**
-	Se debe encargar de arrancar el temporizador: cada 1000 ms se
-	debe ejecutar una función que a partir de la cuenta autoincrementada
-	de los segundos (segundos totales) visualice el tiempo oportunamente con el
-	format hh:mm:ss en el contador adecuado.
-
-	Para descomponer los segundos en horas, minutos y segundos pueden emplearse
-	las siguientes igualdades:
-
-	segundos = truncar (   segundos_totales % (60)                 )
-	minutos  = truncar ( ( segundos_totales % (60*60) )     / 60   )
-	horas    = truncar ( ( segundos_totales % (60*60*24)) ) / 3600 )
-
-	donde % denota la operación módulo (resto de la división entre los operadores)
-
-	Así, por ejemplo, si la cuenta de segundos totales es de 134 s, entonces será:
-	   00:02:14
-
-	Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que
-	evitar que exista más de un temporizador simultáneo, por lo que debería guardarse
-	el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
-	a "clearInterval" en su caso.
-*/
-
 function arrancar_tiempo(){
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 	if (temporizador) clearInterval(temporizador);
     let hms = function (){
 			let seg = Math.trunc( segundos % 60 );
@@ -122,7 +97,7 @@ function arrancar_tiempo(){
             segundos++;
 		}
 	segundos = 0;
-    hms(); // Primera visualización 00:00:00
+    hms();
 	temporizador = setInterval(hms, 1000);
 
 } // arrancar_tiempo
