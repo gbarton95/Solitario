@@ -77,6 +77,7 @@ function comenzar_juego() {
 	set_contador(cont_receptor3, 0);
 	set_contador(cont_receptor4, 0);
 	set_contador(cont_movimientos, 0);
+	set_contador(cont_inicial, mazo_inicial.length)
 
 	// Arrancar el conteo de tiempo
 	arrancar_tiempo();
