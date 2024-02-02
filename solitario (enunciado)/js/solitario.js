@@ -118,7 +118,7 @@ function cargar_tapete_inicial(mazo) {
 		img.style.left = paso * i + "px";
 		img.style.width = "50px";
 		img.style.height = "75px";
-		img.draggable = false;
+		img.draggable = true;
 		tapete_inicial.appendChild(img);
 	}
 }
@@ -168,23 +168,23 @@ function set_contador(contador, valor) {
 
 function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
-  }
+}
 
-  function allowDrop(event) {
+function allowDrop(event) {
 	event.preventDefault();
-  }
+}
 
-  function drop(event) {
+function drop(event) {
 	//te permite soltar datos encima
 	event.preventDefault();
 	//guardas en variable 'data' la URL de la imagen que arrastras
 	var data = event.dataTransfer.getData("Text");
 	//añades al destino los datos obtenidos
 	event.target.appendChild(document.getElementById(data));
-    //deshabilita la capacidad de arrastrar para la imagen colocada
-    img.removeAttribute("draggable");
-  }
+	//deshabilita la capacidad de arrastrar para la imagen colocada
+	img.removeAttribute("draggable");
+}
 
-  function meterReceptor(){
+function meterReceptor(){
 
-  }
+}
