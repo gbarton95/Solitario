@@ -160,6 +160,12 @@ function set_contador(contador, valor) {
 
 /*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 
+// event.preventDefault() se utiliza para permitirte soltar el elemento que arrastras
+// allowDrop(event) se llama cuando se está arrastrando algo sobre un elemento
+// event.dataTransfer.setData("text", event.target.src) establece los datos que se deben transferir durante el arrastre (la URL de la imagen)
+// drop(event): Esta función se llama cuando se suelta algo sobre un elemento
+
+
 function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
   }
@@ -169,9 +175,14 @@ function dragStart(event) {
   }
 
   function drop(event) {
+	//te permite soltar datos encima
 	event.preventDefault();
+	//guardas en variable 'data' la URL de la imagen que arrastras
 	var data = event.dataTransfer.getData("Text");
+	//añades al destino los datos obtenidos
 	event.target.appendChild(document.getElementById(data));
+    //deshabilita la capacidad de arrastrar para la imagen colocada
+    img.removeAttribute("draggable");
   }
 
   function meterReceptor(){
