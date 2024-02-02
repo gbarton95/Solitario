@@ -1,15 +1,11 @@
-/***** INICIO DECLARACIÓN DE VARIABLES GLOBALES *****/
+/******** INICIO DECLARACIÓN DE VARIABLES GLOBALES ********/
 
 // Array de palos:
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas:
-//let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-// En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
 let numeros = [1,2,3,4,5,6,7,8,9, 10, 11, 12];
-
-// Paso (top y left) en pixeles de una carta a la siguiente en un mazo:
+// Paso en px de una carta a la siguiente en un mazo:
 let paso = 5;
-
 // Tapetes
 let tapete_inicial   = document.getElementById("inicial");
 let tapete_sobrantes = document.getElementById("sobrantes");
@@ -18,7 +14,7 @@ let tapete_receptor2 = document.getElementById("receptor2");
 let tapete_receptor3 = document.getElementById("receptor3");
 let tapete_receptor4 = document.getElementById("receptor4");
 
-///////////////////////////////// Mazos ///////////////////////////////////
+///////////////////////// Mazos /////////////////////////
 
 //Mazo de partida
 let mazo_inicial = [];
@@ -28,7 +24,6 @@ let mazo_inicial = [];
       }
     }
 
-
 //Mazo de sobrantes
 let mazo_sobrantes = [];
 
@@ -37,6 +32,8 @@ let mazo_receptor1 = [];
 let mazo_receptor2 = [];
 let mazo_receptor3 = [];
 let mazo_receptor4 = [];
+
+////////////////////////////////////////////////////////
 
 // Contadores de cartas
 let cont_inicial     = document.getElementById("contador_inicial");
@@ -48,20 +45,17 @@ let cont_receptor4   = document.getElementById("contador_receptor4");
 let cont_movimientos = document.getElementById("contador_movimientos");
 
 // Tiempo
-let cont_tiempo  = document.getElementById("contador_tiempo"); // span cuenta tiempo
-let segundos 	 = 0;    // cuenta de segundos
+let cont_tiempo  = document.getElementById("contador_tiempo");
+let segundos 	 = 0;
 let temporizador = null; // manejador del temporizador
 
-/***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
+/******** FIN DECLARACIÓN DE VARIABLES GLOBALES ********/
 
 
-// Rutina asociada a boton reset: comenzar_juego
+// Asigno método comenzar_juego al botón Reset
 document.getElementById("reset").onclick = comenzar_juego;
 
-// El juego arranca ya al cargar la página: no se espera a reiniciar
-/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-
-// Desarrollo del comienzo del juego
+// Método para comenzar/resetear el juego (contiene más métodos desarollados debajo)
 function comenzar_juego() {
 
 	// Barajar
@@ -82,9 +76,9 @@ function comenzar_juego() {
 	// Arrancar el conteo de tiempo
 	arrancar_tiempo();
 
-} // comenzar_juego
+}
 
-
+// Método para el temporizador
 function arrancar_tiempo(){
 	if (temporizador) clearInterval(temporizador);
     let hms = function (){
@@ -100,30 +94,9 @@ function arrancar_tiempo(){
 	segundos = 0;
     hms();
 	temporizador = setInterval(hms, 1000);
+}
 
-} // arrancar_tiempo
-
-
-/**
-	Si mazo es un array de elementos <img>, en esta rutina debe ser
-	reordenado aleatoriamente. Al ser un array un objeto, se pasa
-	por referencia, de modo que si se altera el orden de dicho array
-	dentro de la rutina, esto aparecerá reflejado fuera de la misma.
-	Para reordenar el array puede emplearse el siguiente pseudo código:
-
-	- Recorramos con i todos los elementos del array
-		- Sea j un indice cuyo valor sea un número aleatorio comprendido
-			entre 0 y la longitud del array menos uno. Este valor aleatorio
-			puede conseguirse, por ejemplo con la instrucción JavaScript
-				Math.floor( Math.random() * LONGITUD_DEL_ARRAY );
-		- Se intercambia el contenido de la posición i-ésima con el de la j-ésima
-
-
-
-
-*/
-
-
+//Método para barajar cartas
 function barajar(mazo) {
 	for (let i = mazo.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -133,14 +106,9 @@ function barajar(mazo) {
         mazo[i] = mazo[j];
         mazo[j] = temp;
     }
-
 }
 
-
-
-/**
-	Al final se debe ajustar el contador de cartas a la cantidad oportuna
-*/
+//Método para poner las cartas sobre el tapete inicial
 function cargar_tapete_inicial(mazo) {
 	for(var i = 0; i<mazo.length; i++){
 		var img = document.createElement("img");
@@ -153,8 +121,7 @@ function cargar_tapete_inicial(mazo) {
 		img.draggable = false;
 		tapete_inicial.appendChild(img);
 	}
-
-} // cargar_tapete_inicial
+}
 
 
 /**
@@ -173,9 +140,7 @@ function inc_contador(contador){
 	Idem que anterior, pero decrementando
 */
 function dec_contador(contador){
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! ***/
 	contador.innerHTML = contador.innerHTML - 1;
-
 
 
 } // dec_contador
