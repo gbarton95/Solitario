@@ -5,7 +5,7 @@ let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas:
 //let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [11, 12];
+let numeros = [ 11, 12];
 
 // Paso (top y left) en pixeles de una carta a la siguiente en un mazo:
 let paso = 5;
@@ -120,7 +120,7 @@ function comenzar_juego() {
 	a "clearInterval" en su caso.
 */
 
-function llenarMazo() {
+function llenarMazo(){
 	for (let palo of palos) {
 		for (let numero of numeros) {
 			mazo_inicial.push("imagenes/baraja/" + numero + "-" + palo + ".png");
@@ -128,9 +128,9 @@ function llenarMazo() {
 	}
 }
 
-function resetTapete(tapete) {
+function resetTapete(tapete){
 	var imagenes = tapete.getElementsByTagName("img");
-	for (var i = imagenes.length - 1; i >= 0; i--) {
+	for(var i = imagenes.length-1; i>=0; i--){
 		imagenes[i].remove();
 	}
 }
@@ -260,27 +260,27 @@ function comprobarNumeroPaloMazoReceptor(mazo_receptor) {
 	let cartaPuesta = obtenerUltimaCarta(mazo_receptor);
 	let palosRojos = ["cua", "ova"];
 	let palosGrises = ["cir", "hex"];
-	if (ultimaCarta.numero == cartaPuesta.numero - 1) {
-		if ((palosRojos.includes(ultimaCarta.palo) && palosGrises.includes(cartaPuesta.palo)) || (palosGrises.includes(ultimaCarta.palo) && palosRojos.includes(cartaPuesta.palo)))
-			return true;
+	//falta comprobar los palos
+	if (ultimaCarta.numero == cartaPuesta.numero - 1 ) {
+		if((palosRojos.includes(ultimaCarta.palo) && palosGrises.includes(cartaPuesta.palo)) || (palosGrises.includes(ultimaCarta.palo) && palosRojos.includes(cartaPuesta.palo)))
+		return true;
 	} else {
 		return false;
 	}
 }
 
 function drop(event) {
+	///Arrays de valores para las jugadas(mirar jugada())
 	event.preventDefault();
-	if (event.target == tapete_receptor1) {
-		jugada(mazo_receptor1, tapete_receptor1, cont_receptor1);
-	} else if (event.target == tapete_receptor2) {
-		jugada(mazo_receptor2, tapete_receptor2, cont_receptor2);
-	} else if (event.target == tapete_receptor3) {
-		jugada(mazo_receptor3, tapete_receptor3, cont_receptor3);
-	} else if (event.target == tapete_receptor4) {
-		jugada(mazo_receptor4, tapete_receptor4, cont_receptor4);
-	} else if (event.target == tapete_sobrantes) {
-		jugadaSobrantes(mazo_sobrantes, tapete_sobrantes, cont_sobrantes);
-	}
+        if (event.target == tapete_receptor1) {
+            jugada(mazo_receptor1, tapete_receptor1, cont_receptor1);
+        }else if(event.target == tapete_receptor2){
+			jugada(mazo_receptor2, tapete_receptor2, cont_receptor2);
+		}else if(event.target == tapete_receptor3){
+			jugada(mazo_receptor3, tapete_receptor3, cont_receptor3);
+		}else if(event.target == tapete_receptor4){
+			jugada(mazo_receptor4, tapete_receptor4, cont_receptor4);
+		}
 
 }
 
@@ -289,7 +289,6 @@ function jugada(mazo, tapete, cont) {
 		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
 		var ultimaCarta = mazo_inicial.pop();
 		mazo.push(ultimaCarta);
-
 
 		// Crear la imagen para mostrar la carta en el receptor1
 		var img = document.createElement("img");
@@ -310,29 +309,10 @@ function jugada(mazo, tapete, cont) {
 		var imagenes = tapete_inicial.getElementsByTagName("img");
 		imagenes[imagenes.length - 1].remove();
 		draggeable();
+
+
 	}
-}
 
-function jugadaSobrantes(mazo, tapete, cont) {
-	var ultimaCarta = mazo_inicial.pop();
-	mazo.push(ultimaCarta);
-
-	var img = document.createElement("img");
-	img.src = mazo[mazo.length - 1];
-	img.style.position = "absolute";
-	img.style.top = "25px";
-	img.style.left = "25px";
-	img.style.width = "50px";
-	img.style.height = "75px";
-	tapete.appendChild(img);
-
-	inc_contador(cont);
-	dec_contador(cont_inicial);
-	inc_contador(cont_movimientos);
-
-	var imagenes = tapete_inicial.getElementsByTagName("img");
-	imagenes[imagenes.length - 1].remove();
-	draggeable();
 }
 
 //metodo para convertir la ultima carta en draggeable
