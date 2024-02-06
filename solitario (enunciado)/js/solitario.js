@@ -42,10 +42,7 @@ let cont_receptor3 = document.getElementById("contador_receptor3");
 let cont_receptor4 = document.getElementById("contador_receptor4");
 let cont_movimientos = document.getElementById("contador_movimientos");
 
-///Arrays de valores para las jugadas(mirar jugada())
-let tapetesReceptores = [tapete_receptor1, tapete_receptor2, tapete_receptor3, tapete_receptor4];
-let mazosReceptores = [mazo_receptor1, mazo_receptor2, mazo_receptor3, mazo_receptor4];
-let cont_receptores = [cont_receptor1, cont_receptor2, cont_receptor3, cont_receptor4];
+
 
 // Tiempo
 let cont_tiempo = document.getElementById("contador_tiempo"); // span cuenta tiempo
@@ -68,12 +65,12 @@ function comenzar_juego() {
 	resetTapete(tapete_receptor4);
 	resetTapete(tapete_sobrantes);
 
-	mazo_inicial = [];
-	mazo_receptor1 = [];
-	mazo_receptor2 = [];
-	mazo_receptor3 = [];
-	mazo_receptor4 = [];
-	mazo_sobrantes = [];
+	mazo_inicial.length = 0;
+	mazo_receptor1.length = 0;
+	mazo_receptor2.length = 0;
+	mazo_receptor3.length = 0;
+	mazo_receptor4.length = 0;
+	mazo_sobrantes.length = 0;
 
 	llenarMazo(); //llenamos mazo inicial
 	barajar(mazo_inicial);
@@ -233,7 +230,6 @@ function dragStart(event) {
 }
 
 function allowDrop(event) {
-function allowDrop(event) {
 	event.preventDefault();
 }
 
@@ -274,41 +270,45 @@ function comprobarNumeroPaloMazoReceptor(mazo_receptor) {
 }
 
 function drop(event) {
+	///Arrays de valores para las jugadas(mirar jugada())
 	event.preventDefault();
-	for (let i = 0; i < tapetesReceptores.length; i++) {
-        if (event.target === tapetesReceptores[i]) {
-            jugada(mazosReceptores[i], tapetesReceptores[i], cont_receptores[i]);
-			console.log(cont_receptor1);
-			console.log(mazo_receptor1.length);
+        if (event.target == tapete_receptor1) {
+            jugada(mazo_receptor1, tapete_receptor1, cont_receptor1);
+			//console.log(cont_receptor1);
+			//console.log(mazo_receptor1.length);
 
         }
-    }
+
 }
 
-function jugada(mazo_receptor, tapete_receptor, cont_receptor) {
-	if ((mazo_receptor.length == 0 && comprobarRey()) || comprobarNumeroPaloMazoReceptor(mazo_receptor)) {
+function jugada(mazo, tapete, cont) {
+	if ((mazo.length == 0 && comprobarRey()) || comprobarNumeroPaloMazoReceptor(mazo)) {
 		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
-		mazo_receptor.push(mazo_inicial.pop());
+		var ultimaCarta = mazo_inicial.pop();
+		mazo.push(ultimaCarta);
+		console.log(mazo.length);
 
 		// Crear la imagen para mostrar la carta en el receptor1
 		var img = document.createElement("img");
-		img.src = mazo_receptor[mazo_receptor.length - 1];
+		img.src = mazo[mazo.length - 1];
 		img.style.position = "absolute";
 		img.style.top = "25px";
 		img.style.left = "25px";
 		img.style.width = "50px";
 		img.style.height = "75px";
 		img.draggable = false;
-		tapete_receptor.appendChild(img);
+		tapete.appendChild(img);
 
 		// Actualizar contadores y eliminar carta de mazo_inicial
-		inc_contador(cont_receptor);
+		inc_contador(cont);
 		dec_contador(cont_inicial);
 		inc_contador(cont_movimientos);
 
-		var tapete = tapete_inicial.getElementsByTagName("img");
-		tapete[tapete.length - 1].remove();
+		var imagenes = tapete_inicial.getElementsByTagName("img");
+		imagenes[imagenes.length - 1].remove();
 		draggeable();
+
+
 	}
 
 }
