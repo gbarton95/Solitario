@@ -21,7 +21,12 @@ h2#marcadores{
 div#mesa{
 	text-align: center;
 	margin:20px;
+	background-image: url('../imagenes/tapete.jpg');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
 }
+
 
 /* Tapetes */
 div.tapete{
@@ -34,7 +39,6 @@ div.tapete{
 div.tapete#inicial{
 	width: 340px;
 	height: 340px;
-	background-color: lightgrey;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
@@ -51,4 +55,10 @@ div.tapete#sobrantes{
 /* Color de fondo de los tapetes receptores */
 div.tapete.receptor{
 	background-color: lightgreen;
+}
+
+#contador_inicial{
+	background-color: white;
+	border-radius: 50%;
+	padding: 5px;
 }

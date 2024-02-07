@@ -1,11 +1,10 @@
 /******** INICIO DECLARACIÓN DE VARIABLES GLOBALES ********/
-
 // Array de palos:
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas:
 //let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [11, 12];
+let numeros = [1,2,3,4,5,6,7,8,9,10,11, 12];
 
 // Paso (top y left) en pixeles de una carta a la siguiente en un mazo:
 let paso = 5;
@@ -93,7 +92,7 @@ function comenzar_juego() {
 	//hacemos la ultima carta del tapete draggeable
 	draggeable();
 
-	if(cont_inicial.innerHTML==0){
+	if (cont_inicial.innerHTML == 0) {
 		mazo_inicial = mazo_sobrantes;
 		barajar(mazo_inicial);
 		cargar_tapete_inicial(mazo_inicial);
@@ -144,20 +143,20 @@ function resetTapete(tapete) {
 }
 
 function verificarMazoInicial() {
-    if (parseInt(cont_inicial.innerHTML) === 0) {
-        mazo_inicial = mazo_sobrantes.slice(); // Copiamos el mazo de sobrantes
-        barajar(mazo_inicial);
-        cargar_tapete_inicial(mazo_inicial);
-        mazo_sobrantes.length = 0;
-        resetTapete(tapete_sobrantes);
+	if (parseInt(cont_inicial.innerHTML) === 0) {
+		mazo_inicial = mazo_sobrantes.slice(); // Copiamos el mazo de sobrantes
+		barajar(mazo_inicial);
+		cargar_tapete_inicial(mazo_inicial);
+		mazo_sobrantes.length = 0;
+		resetTapete(tapete_sobrantes);
 		set_contador(cont_sobrantes, 0);
 		set_contador(cont_inicial, mazo_inicial.length);
 		draggeable();
-    }
+	}
 }
 
-function verificarVictoria(){
-	if(cont_inicial.innerHTML==0 && cont_sobrantes.innerHTML==0){
+function verificarVictoria() {
+	if (cont_inicial.innerHTML == 0 && cont_sobrantes.innerHTML == 0) {
 		parar_tiempo();
 		alert("VICTORIA!!!!");
 
@@ -184,7 +183,7 @@ function arrancar_tiempo() {
 }
 
 function parar_tiempo() {
-	if(temporizador) {
+	if (temporizador) {
 		clearInterval(temporizador);
 		temporizador = null;
 	}
@@ -264,9 +263,9 @@ function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
 }
 
-function dragStartSobrantes(event){
+function dragStartSobrantes(event) {
 	event.dataTransfer.setData("Text", event.target.id);
-    event.dataTransfer.setData("fromSobrantes", "true");
+	event.dataTransfer.setData("fromSobrantes", "true");
 }
 
 function allowDrop(event) {
@@ -293,11 +292,11 @@ function comprobarReyInicial() {
 	}
 }
 
-function comprobarReySobrantes(){
+function comprobarReySobrantes() {
 	let ultimaCarta = obtenerUltimaCarta(mazo_sobrantes);
-	if(ultimaCarta.numero == 12){
+	if (ultimaCarta.numero == 12) {
 		return true;
-	}else{
+	} else {
 		return false;
 	}
 }
@@ -317,38 +316,38 @@ function comprobarNumeroPaloMazoReceptor(mazoQueMandaLaCarta, mazo_receptor) {
 }
 
 function drop(event) {
-    event.preventDefault();
-    if (event.target == tapete_receptor1 || event.target == tapete_receptor1.lastChild) {
-        if (event.dataTransfer.getData("fromSobrantes") === "true") {
-            desdeSobrantes(mazo_receptor1, tapete_receptor1, cont_receptor1);
-        } else {
-            jugada(mazo_receptor1, tapete_receptor1, cont_receptor1);
-        }
-    } else if (event.target == tapete_receptor2 || event.target == tapete_receptor2.lastChild) {
-        if (event.dataTransfer.getData("fromSobrantes") === "true") {
-            desdeSobrantes(mazo_receptor2, tapete_receptor2, cont_receptor2);
-        } else {
-            jugada(mazo_receptor2, tapete_receptor2, cont_receptor2);
-        }
-    } else if (event.target == tapete_receptor3 || event.target == tapete_receptor3.lastChild) {
-        if (event.dataTransfer.getData("fromSobrantes") === "true") {
-            desdeSobrantes(mazo_receptor3, tapete_receptor3, cont_receptor3);
-        } else {
-            jugada(mazo_receptor3, tapete_receptor3, cont_receptor3);
-        }
-    } else if (event.target == tapete_receptor4 || event.target == tapete_receptor4.lastChild) {
-        if (event.dataTransfer.getData("fromSobrantes") === "true") {
-            desdeSobrantes(mazo_receptor4, tapete_receptor4, cont_receptor4);
-        } else {
-            jugada(mazo_receptor4, tapete_receptor4, cont_receptor4);
-        }
-    } else if (event.target == tapete_sobrantes || event.target == tapete_sobrantes.lastChild) {
-        jugadaSobrantes();
-    }
+	event.preventDefault();
+	if (event.target == tapete_receptor1 || event.target == tapete_receptor1.lastChild) {
+		if (event.dataTransfer.getData("fromSobrantes") === "true") {
+			desdeSobrantes(mazo_receptor1, tapete_receptor1, cont_receptor1);
+		} else {
+			jugada(mazo_receptor1, tapete_receptor1, cont_receptor1);
+		}
+	} else if (event.target == tapete_receptor2 || event.target == tapete_receptor2.lastChild) {
+		if (event.dataTransfer.getData("fromSobrantes") === "true") {
+			desdeSobrantes(mazo_receptor2, tapete_receptor2, cont_receptor2);
+		} else {
+			jugada(mazo_receptor2, tapete_receptor2, cont_receptor2);
+		}
+	} else if (event.target == tapete_receptor3 || event.target == tapete_receptor3.lastChild) {
+		if (event.dataTransfer.getData("fromSobrantes") === "true") {
+			desdeSobrantes(mazo_receptor3, tapete_receptor3, cont_receptor3);
+		} else {
+			jugada(mazo_receptor3, tapete_receptor3, cont_receptor3);
+		}
+	} else if (event.target == tapete_receptor4 || event.target == tapete_receptor4.lastChild) {
+		if (event.dataTransfer.getData("fromSobrantes") === "true") {
+			desdeSobrantes(mazo_receptor4, tapete_receptor4, cont_receptor4);
+		} else {
+			jugada(mazo_receptor4, tapete_receptor4, cont_receptor4);
+		}
+	} else if (event.target == tapete_sobrantes || event.target == tapete_sobrantes.lastChild) {
+		jugadaSobrantes();
+	}
 }
 
 
-function desdeSobrantes(mazo, tapete, cont){
+function desdeSobrantes(mazo, tapete, cont) {
 	if ((mazo.length == 0 && comprobarReySobrantes()) || comprobarNumeroPaloMazoReceptor(mazo_sobrantes, mazo)) {
 		var ultimaCarta = mazo_sobrantes.pop();
 		mazo.push(ultimaCarta);
@@ -418,7 +417,7 @@ function jugadaSobrantes() {
 	img.style.width = "50px";
 	img.style.height = "75px";
 	img.draggable = true;
-	img.setAttribute("ondragstart","dragStartSobrantes(event)");
+	img.setAttribute("ondragstart", "dragStartSobrantes(event)");
 	tapete_sobrantes.appendChild(img);
 
 	// Actualizar contadores y eliminar carta de mazo_inicial
@@ -435,7 +434,7 @@ function jugadaSobrantes() {
 
 //metodo para convertir la ultima carta en draggeable
 function draggeable() {
-	if(mazo_inicial.length>0){
+	if (mazo_inicial.length > 0) {
 		var imagenes = tapete_inicial.getElementsByTagName("img");
 		var carta = imagenes[imagenes.length - 1];
 		carta.setAttribute("ondragstart", "dragStart(event)");
