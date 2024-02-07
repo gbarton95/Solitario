@@ -67,8 +67,6 @@ div.tapete.receptor {
 	transform: scale(1.1)
 }
 
-#carta:hover,
-#carta:not(:hover) {
+#carta:hover, #carta:not(:hover) {
 	transition: transform 0.3s ease;
-	/* Añade transición para el estado normal */
 }
