@@ -4,7 +4,7 @@ let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas:
 //let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [1,2,3,4,5,6,7,8,9,10,11, 12];
+let numeros = [11, 12];
 
 // Paso (top y left) en pixeles de una carta a la siguiente en un mazo:
 let paso = 5;
@@ -417,6 +417,7 @@ function jugadaSobrantes() {
 	img.style.width = "50px";
 	img.style.height = "75px";
 	img.draggable = true;
+	img.setAttribute("id","carta");
 	img.setAttribute("ondragstart", "dragStartSobrantes(event)");
 	tapete_sobrantes.appendChild(img);
 
@@ -439,5 +440,6 @@ function draggeable() {
 		var carta = imagenes[imagenes.length - 1];
 		carta.setAttribute("ondragstart", "dragStart(event)");
 		carta.setAttribute("draggable", "true");
+		carta.setAttribute("id", "carta");
 	}
 }

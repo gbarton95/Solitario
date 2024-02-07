@@ -1,4 +1,3 @@
-
 /* Contadores */
 .contador {
 	position: absolute;
@@ -13,14 +12,14 @@ h1#titulo {
 }
 
 /* Centrado de los marcadores de tiempo y movimientos */
-h2#marcadores{
+h2#marcadores {
 	text-align: center;
 }
 
 /* Mesa que contiene a los tapetes centrados */
-div#mesa{
+div#mesa {
 	text-align: center;
-	margin:20px;
+	margin: 20px;
 	background-image: url('../imagenes/tapete.jpg');
 	background-position: center;
 	background-size: contain;
@@ -29,36 +28,47 @@ div#mesa{
 
 
 /* Tapetes */
-div.tapete{
+div.tapete {
 	display: inline-block;
 	position: relative;
 	margin: 10px;
 }
 
 /* Dimensiones y color de fondo para el tapete inicial */
-div.tapete#inicial{
+div.tapete#inicial {
 	width: 340px;
 	height: 340px;
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
-div.tapete:not(#inicial){
+div.tapete:not(#inicial) {
 	height: 125px;
 	width: 100px;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
-div.tapete#sobrantes{
+div.tapete#sobrantes {
 	background-color: lightblue;
 }
 
 /* Color de fondo de los tapetes receptores */
-div.tapete.receptor{
+div.tapete.receptor {
 	background-color: lightgreen;
 }
 
-#contador_inicial{
+#contador_inicial {
 	background-color: white;
 	border-radius: 50%;
 	padding: 5px;
+}
+
+#carta:hover {
+	transition: transform 0.3s ease;/*si pones el raton por encima de la ultima carta hace una animacion de zoom y cuando lo quitas vuelve con animacion también*/
+	transform: scale(1.1)
+}
+
+#carta:hover,
+#carta:not(:hover) {
+	transition: transform 0.3s ease;
+	/* Añade transición para el estado normal */
 }
