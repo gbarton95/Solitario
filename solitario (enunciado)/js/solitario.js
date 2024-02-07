@@ -158,6 +158,7 @@ function verificarMazoInicial() {
 
 function verificarVictoria(){
 	if(cont_inicial.innerHTML==0 && cont_sobrantes.innerHTML==0){
+		parar_tiempo();
 		alert("VICTORIA!!!!");
 
 	}
@@ -166,7 +167,6 @@ function verificarVictoria(){
 
 
 function arrancar_tiempo() {
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 	if (temporizador) clearInterval(temporizador);
 	let hms = function () {
 		let seg = Math.trunc(segundos % 60);
@@ -181,6 +181,13 @@ function arrancar_tiempo() {
 	segundos = 0;
 	hms(); // Primera visualización 00:00:00
 	temporizador = setInterval(hms, 1000);
+}
+
+function parar_tiempo() {
+	if(temporizador) {
+		clearInterval(temporizador);
+		temporizador = null;
+	}
 }
 
 //Método para barajar cartas
