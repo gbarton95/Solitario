@@ -5,7 +5,7 @@ let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas:
 //let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [11, 12];
+let numeros = [12];
 
 // Paso (top y left) en pixeles de una carta a la siguiente en un mazo:
 let paso = 5;
@@ -159,7 +159,8 @@ function verificarMazoInicial() {
 function verificarVictoria(){
 	if(cont_inicial.innerHTML==0 && cont_sobrantes.innerHTML==0){
 		parar_tiempo();
-		alert("VICTORIA!!!!");
+
+		victoria();
 
 	}
 }
@@ -440,5 +441,30 @@ function draggeable() {
 		var carta = imagenes[imagenes.length - 1];
 		carta.setAttribute("ondragstart", "dragStart(event)");
 		carta.setAttribute("draggable", "true");
+	}
+}
+
+////////////////////////////CONFETI////////////////////////////
+
+function victoria() {
+	// Mostrar la ventana emergente
+	const ventanaVictoria = document.getElementById('ventanaVictoria');
+	ventanaVictoria.style.display = 'block';
+
+	// Reproducir sonido
+	const sonido = new Audio('../victorySoundEffect.mp3');
+	sonido.play();
+
+	lanzarConfeti();
+}
+
+function lanzarConfeti() {
+	const contenedorConfeti = document.getElementById('ventanaVictoria');
+	for (let i = 0; i < 50; i++) {
+		const confeti = document.createElement('div');
+		confeti.className = 'confeti';
+		confeti.style.left = Math.random() * window.innerWidth + 'px';
+		confeti.style.animationDuration = Math.random() * 2 + 1 + 's';
+		contenedorConfeti.appendChild(confeti);
 	}
 }

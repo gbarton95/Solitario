@@ -52,3 +52,37 @@ div.tapete#sobrantes{
 div.tapete.receptor{
 	background-color: lightgreen;
 }
+
+/* Ventana de victoria + confeti */
+#ventanaVictoria {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+	border: 3px solid red;
+
+}
+.confeti {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    position: absolute;
+    animation: confeti 3s ease-out infinite;
+
+}
+
+@keyframes confeti {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(500px) rotate(360deg);
+    }
+}
+
