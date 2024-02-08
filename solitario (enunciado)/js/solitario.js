@@ -41,7 +41,7 @@ let temporizador = null;
 /********** FIN DECLARACIÓN DE VARIABLES GLOBALES **********/
 
 
-// Asigno método comenzar_juego al botón Reset
+// Botón reset aplica comenzar_juego (¿Pasamos esto al html?)
 document.getElementById("reset").onclick = comenzar_juego;
 
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
