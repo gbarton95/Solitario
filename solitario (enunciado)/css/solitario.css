@@ -13,7 +13,10 @@ h1#titulo {
 
 /* Centrado de los marcadores de tiempo y movimientos */
 h2#marcadores {
-	text-align: center;
+	max-width: 800px;
+	margin: auto;
+	display: flex;
+	justify-content: space-around;
 }
 
 /* Mesa que contiene a los tapetes centrados */
@@ -25,7 +28,6 @@ div#mesa {
 	background-size: contain;
 	background-repeat: no-repeat;
 }
-
 
 /* Tapetes */
 div.tapete {
@@ -56,6 +58,20 @@ div.tapete.receptor {
 	background-color: lightgreen;
 }
 
+/* Bloque de tapetes receptores */
+div.tapetes_inferiores div{
+	border: 1px solid rgb(3, 54, 3);
+	border-radius: 5px;
+}
+
+div.central {
+	border: 3px solid red;
+	max-width: 1000px;
+	margin: auto;
+}
+
+/* Cartas ????????????????????*/
+
 /* Ventana de victoria*/
 #ventanaVictoria {
     display: none;
@@ -84,6 +100,11 @@ div.tapete.receptor {
 }
 
 #reset {
+	width: 200px;
+	height: 50px;
+	font-size: 25px;
+	background-color: darkred;
+	margin-left: 10px;
 	z-index: 4;
 }
 
@@ -101,3 +122,57 @@ div.tapete.receptor {
 #carta:hover, #carta:not(:hover) {
 	transition: transform 0.3s ease;
 }
+
+#inicial img {
+	margin-top: 30px;
+}
+
+/* Para móviles y pantallas pequeñas */
+@media only screen and (max-width: 700px) { /*540px*/
+	html, body {
+		padding: 0;
+		margin: 0;
+	}
+
+	#mesa {
+		position: relative;
+	}
+
+	div#mesa {
+		background-position: top;
+		margin: auto;
+		max-width: 550px;
+	}
+
+	#marcadores {
+		padding: 10px;
+	}
+
+	div.tapete:not(#inicial) {
+		height: 100px;
+		width: 75px;
+		margin: 15px;
+	}
+
+	div.tapete#sobrantes {
+		background-color: lightblue;
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-right: 60px;
+		margin-top: 50px;
+	}
+
+	.contador:not(#contador_inicial) {
+		position: absolute;
+		top: 0;
+		left: -50px;
+	}
+
+	#reset {
+		display: block;
+		margin: auto;
+		margin-top: 30px;
+	}
+
+  }
