@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -37,6 +37,10 @@ let cont_movimientos = document.getElementById("contador_movimientos");
 let cont_tiempo = document.getElementById("contador_tiempo");
 let segundos = 0;
 let temporizador = null;
+
+// Ventana de la victoria y audio
+const ventanaVictoria = document.getElementById('ventanaVictoria');
+const sonido = new Audio('imagenes/victorySoundEffect.mp3');
 
 /********** FIN DECLARACIÓN DE VARIABLES GLOBALES **********/
 
@@ -382,23 +386,22 @@ function verificarVictoria() {
 
 function victoria() {
 	// Mostrar la ventana emergente
-	const ventanaVictoria = document.getElementById('ventanaVictoria');
 	ventanaVictoria.style.display = 'block';
+	confeti.style.display = 'block';
 
 	// Reproducir sonido
-	const sonido = new Audio('../victorySoundEffect.mp3');
 	sonido.play();
 
-	lanzarConfeti();
+
 }
 
-function lanzarConfeti() {
-	const contenedorConfeti = document.getElementById('ventanaVictoria');
-	for (let i = 0; i < 50; i++) {
-		const confeti = document.createElement('div');
-		confeti.className = 'confeti';
-		confeti.style.left = Math.random() * window.innerWidth + 'px';
-		confeti.style.animationDuration = Math.random() * 2 + 1 + 's';
-		contenedorConfeti.appendChild(confeti);
-	}
-}
+
+function pararVictoria() {
+	ventanaVictoria.style.display = 'none';
+	confeti.style.display = 'none';
+
+	// Detener la reproducción del sonido
+	sonido.pause();
+	sonido.currentTime = 0;  // Reiniciar el tiempo de reproducción al principio
+
+  }

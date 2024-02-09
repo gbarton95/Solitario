@@ -56,7 +56,7 @@ div.tapete.receptor {
 	background-color: lightgreen;
 }
 
-/* Ventana de victoria + confeti */
+/* Ventana de victoria*/
 #ventanaVictoria {
     display: none;
     position: fixed;
@@ -71,25 +71,21 @@ div.tapete.receptor {
 	border: 3px solid red;
 
 }
-.confeti {
-    width: 10px;
-    height: 10px;
-    background-color: blue;
-    position: absolute;
-    animation: confeti 3s ease-out infinite;
 
+/* Confeti */
+#confeti {
+	display: none;
+	position: fixed;
+	margin: auto;
+	z-index: 3;
+	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
 }
 
-@keyframes confeti {
-    0% {
-        transform: translateY(0) rotate(0deg);
-    }
-    100% {
-        transform: translateY(500px) rotate(360deg);
-    }
+#reset {
+	z-index: 4;
 }
-
-
 
 #contador_inicial {
 	background-color: white;

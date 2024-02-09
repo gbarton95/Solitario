@@ -20,13 +20,11 @@
 			<span>Movimientos: <span id="contador_movimientos" class=""></span></span>
 		</h2>
 
-		<div id="mesa">
+		<div id="mesa"> <!--La mesa contiene todos los tapetes donde se colocarán las cartas-->
 			<div class="tapetes_superiores">
 				<div id="inicial" class="tapete"><span id="contador_inicial" class="contador"></span></div>
 				<div id="sobrantes" class="tapete" ondrop="drop(event)" ondragover="allowDrop(event)"><span id="contador_sobrantes" class="contador"></span></div>
 			</div>
-
-
 
 			<div id="receptor1" class="tapete receptor" ondrop="drop(event)" ondragover="allowDrop(event)"><span id="contador_receptor1" class="contador"></span></div>
 			<div id="receptor2" class="tapete receptor" ondrop="drop(event)" ondragover="allowDrop(event)"><span id="contador_receptor2" class="contador"></span></div>
@@ -38,6 +36,7 @@
 		<div id="ventanaVictoria">
 			<h2>¡Felicidades! Has ganado</h2>
 		</div>
+		<img id="confeti" src="imagenes/confeti.gif" alt="Explosión de confeti pa ti">
 
 		<button id="reset" class="btn btn-danger">Reiniciar</button>
 	</div>
