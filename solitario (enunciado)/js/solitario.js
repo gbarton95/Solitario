@@ -51,6 +51,9 @@ document.getElementById("reset").onclick = comenzar_juego;
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
 function comenzar_juego() {
 
+	//parar victoria
+	pararVictoria();
+
 	//resetear tapetes
 	resetTapete(tapete_inicial);
 	resetTapete(tapete_receptor1);
@@ -126,7 +129,7 @@ function jugada(mazo, tapete, cont) {
 		draggeable();
 	}
 	verificarMazoInicial();
-	verificarVictoria();
+	victoria();
 }
 
 function jugadaSobrantes() {
@@ -155,7 +158,7 @@ function jugadaSobrantes() {
 	imagenes[imagenes.length - 1].remove();
 	draggeable();
 	verificarMazoInicial();
-	verificarVictoria();
+	victoria();
 }
 
 function desdeSobrantes(mazo, tapete, cont) {
@@ -376,23 +379,16 @@ function draggeable() {
 
 // MÉTODO PRINCIPAL: finalización del juego
 
-function verificarVictoria() {
-	if (cont_inicial.innerHTML == 0 && cont_sobrantes.innerHTML == 0) {
-		parar_tiempo();
-
-		victoria();
-	}
-}
-
 function victoria() {
-	// Mostrar la ventana emergente
-	ventanaVictoria.style.display = 'block';
-	confeti.style.display = 'block';
-
-	// Reproducir sonido
-	sonido.play();
-
-
+	if (cont_inicial.innerHTML == 0 && cont_sobrantes.innerHTML == 0) {
+		// Parar el tiempo
+		parar_tiempo();
+		// Mostrar la ventana emergente y el confeti
+		ventanaVictoria.style.display = 'block';
+		confeti.style.display = 'block';
+		// Reproducir sonido
+		sonido.play();
+	}
 }
 
 
