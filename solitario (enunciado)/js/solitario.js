@@ -311,7 +311,6 @@ function parar_tiempo() {
 
 function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
-        event.dataTransfer.setData("fromSobrantes", "false");
 }
 
 function dragStartSobrantes(event) {
