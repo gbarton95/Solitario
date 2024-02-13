@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [ 9, 10, 11, 12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -98,7 +98,7 @@ function comenzar_juego() {
 
 // MÉTODO PRINCIPAL: desarrollo del juego
 function jugada(mazo, tapete, cont) {
-	if ((mazo.length == 0 && comprobarReyInicial()) || comprobarNumeroPaloMazoReceptor(mazo_inicial, mazo)) {
+	if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || comprobarNumeroPaloMazoReceptor(mazo_inicial, mazo)) {
 		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
 		var ultimaCarta = mazo_inicial.pop();
 		mazo.push(ultimaCarta);
@@ -158,7 +158,7 @@ function jugadaSobrantes() {
 }
 
 function desdeSobrantes(mazo, tapete, cont) {
-	if ((mazo.length == 0 && comprobarReySobrantes()) || comprobarNumeroPaloMazoReceptor(mazo_sobrantes, mazo)) {
+	if ((mazo.length == 0 && comprobarRey(mazo_sobrantes)) || comprobarNumeroPaloMazoReceptor(mazo_sobrantes, mazo)) {
 		var ultimaCarta = mazo_sobrantes.pop();
 		mazo.push(ultimaCarta);
 
@@ -227,17 +227,8 @@ function obtenerUltimaCarta(mazo) {
 	return { numero, palo };
 }
 
-function comprobarReyInicial() {
-	let ultimaCarta = obtenerUltimaCarta(mazo_inicial);
-	if (ultimaCarta.numero == 12) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function comprobarReySobrantes() {
-	let ultimaCarta = obtenerUltimaCarta(mazo_sobrantes);
+function comprobarRey(mazo) {
+	let ultimaCarta = obtenerUltimaCarta(mazo);
 	if (ultimaCarta.numero == 12) {
 		return true;
 	} else {
