@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [ 9, 10, 11, 12];
+let numeros = [9, 10, 11, 12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -92,7 +92,34 @@ function comenzar_juego() {
 
 // MÉTODO PRINCIPAL: desarrollo del juego
 function jugada(mazo, tapete, cont) {
-	//jugada que realizamos si soltamos una carta del mazo inicial a un tapete
+	if (mazo == mazo_sobrantes) {
+		var ultimaCarta = mazo_inicial.pop();
+		mazo.push(ultimaCarta);
+
+		// Crear la imagen para mostrar la carta en el receptor1
+		var img = document.createElement("img");
+		img.src = mazo[mazo.length - 1];
+		img.style.position = "absolute";
+		img.style.top = "25px";
+		img.style.left = "25px";
+		img.style.width = "50px";
+		img.style.height = "75px";
+		img.draggable = true;
+		img.setAttribute("id","carta");
+		img.setAttribute("ondragstart", "dragStartSobrantes(event)");
+		tapete.appendChild(img);
+
+		// Actualizar contadores y eliminar carta de mazo_inicial
+		inc_contador(cont);
+		dec_contador(cont_inicial);
+		inc_contador(cont_movimientos);
+
+		var imagenes = tapete_inicial.getElementsByTagName("img");
+		imagenes[imagenes.length - 1].remove();
+		draggeable();
+		verificarMazoInicial();
+		victoria();
+	}else//jugada que realizamos si soltamos una carta del mazo inicial a un tapete
 	if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || comprobarNumeroPaloMazoReceptor(mazo_inicial, mazo)) {
 		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
 		var ultimaCarta = mazo_inicial.pop();
@@ -119,36 +146,6 @@ function jugada(mazo, tapete, cont) {
 		imagenes[imagenes.length - 1].remove();
 		draggeable();
 	}
-	verificarMazoInicial();
-	victoria();
-}
-
-function jugadaSobrantes() {
-	//jugada que haremos cuando soltamos una carta sobre el mazo de sobrantes
-	var ultimaCarta = mazo_inicial.pop();
-	mazo_sobrantes.push(ultimaCarta);
-
-	// Crear la imagen para mostrar la carta en el receptor1
-	var img = document.createElement("img");
-	img.src = mazo_sobrantes[mazo_sobrantes.length - 1];
-	img.style.position = "absolute";
-	img.style.top = "25px";
-	img.style.left = "25px";
-	img.style.width = "50px";
-	img.style.height = "75px";
-	img.draggable = true;
-	img.setAttribute("id","carta");
-	img.setAttribute("ondragstart", "dragStartSobrantes(event)");
-	tapete_sobrantes.appendChild(img);
-
-	// Actualizar contadores y eliminar carta de mazo_inicial
-	inc_contador(cont_sobrantes);
-	dec_contador(cont_inicial);
-	inc_contador(cont_movimientos);
-
-	var imagenes = tapete_inicial.getElementsByTagName("img");
-	imagenes[imagenes.length - 1].remove();
-	draggeable();
 	verificarMazoInicial();
 	victoria();
 }
@@ -314,7 +311,7 @@ function parar_tiempo() {
 
 function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
-	event.dataTransfer.setData("fromSobrantes", "false");
+        event.dataTransfer.setData("fromSobrantes", "false");
 }
 
 function dragStartSobrantes(event) {
@@ -354,8 +351,8 @@ function drop(event) {
 			jugada(mazo_receptor4, tapete_receptor4, cont_receptor4);
 		}
 	} else if (event.target == tapete_sobrantes || event.target == tapete_sobrantes.lastChild) {
-		if(event.dataTransfer.getData("fromSobrantes") === "false"){
-			jugadaSobrantes();
+		if (event.dataTransfer.getData("fromSobrantes") === "false") {
+			jugada(mazo_sobrantes, tapete_sobrantes, cont_sobrantes);
 			//comprobamos que la carta no venga de sobrantes, ya que sino se podría soltar una cara del mazo sobrantes al tapete de sobrantes y pillaria la carta del mazo inicial,
 			//ya que asi esta hecha la jugada
 		}
@@ -395,4 +392,4 @@ function pararVictoria() {
 	sonido.pause();
 	sonido.currentTime = 0;  // Reiniciar el tiempo de reproducción al principio
 
-  }
+}
