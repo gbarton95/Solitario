@@ -85,19 +85,14 @@ function comenzar_juego() {
 	// Hacer la última carta del tapete draggeable
 	draggeable();
 
-	//???
-	if (cont_inicial.innerHTML == 0) {
-		mazo_inicial = mazo_sobrantes;
-		barajar(mazo_inicial);
-		cargar_tapete_inicial(mazo_inicial);
-		mazo_sobrantes.length = 0;
-		resetTapete(tapete_sobrantes);
-	}
+	//comprobamos si el mazo inicial esta vacio y metemos las cartas del mazo sobrante al inicial
+	verificarMazoInicial();
 
 }
 
 // MÉTODO PRINCIPAL: desarrollo del juego
 function jugada(mazo, tapete, cont) {
+	//jugada que realizamos si soltamos una carta del mazo inicial a un tapete
 	if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || comprobarNumeroPaloMazoReceptor(mazo_inicial, mazo)) {
 		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
 		var ultimaCarta = mazo_inicial.pop();
@@ -129,6 +124,7 @@ function jugada(mazo, tapete, cont) {
 }
 
 function jugadaSobrantes() {
+	//jugada que haremos cuando soltamos una carta sobre el mazo de sobrantes
 	var ultimaCarta = mazo_inicial.pop();
 	mazo_sobrantes.push(ultimaCarta);
 
@@ -158,6 +154,7 @@ function jugadaSobrantes() {
 }
 
 function desdeSobrantes(mazo, tapete, cont) {
+	//jugada que realizamos si la carta es desde el mazo de sobrantes
 	if ((mazo.length == 0 && comprobarRey(mazo_sobrantes)) || comprobarNumeroPaloMazoReceptor(mazo_sobrantes, mazo)) {
 		var ultimaCarta = mazo_sobrantes.pop();
 		mazo.push(ultimaCarta);
@@ -204,6 +201,7 @@ function barajar(mazo) {
 }
 
 function verificarMazoInicial() {
+	//cada vez que el mazo inicial se queda sin cartas, se pasan las cartas del mazo sobrante al mazo inicial
 	if (parseInt(cont_inicial.innerHTML) === 0) {
 		mazo_inicial = mazo_sobrantes.slice(); // Copiamos el mazo de sobrantes
 		barajar(mazo_inicial);
@@ -217,6 +215,7 @@ function verificarMazoInicial() {
 }
 
 function obtenerUltimaCarta(mazo) {
+	//obtiene el numero y el palo de la ultima carta del mazo que necesitemos
 	let ultimaCarta = mazo[mazo.length - 1];
 	// Extraer el número y el palo de la ruta de la imagen
 	let partes = ultimaCarta.split("/");
@@ -228,6 +227,7 @@ function obtenerUltimaCarta(mazo) {
 }
 
 function comprobarRey(mazo) {
+	//comprobamos que la primera carta que soltamos en uno de los tapetes sea siempre un rey (esto no se aplica para el tapete de sobrantes)
 	let ultimaCarta = obtenerUltimaCarta(mazo);
 	if (ultimaCarta.numero == 12) {
 		return true;
@@ -237,6 +237,8 @@ function comprobarRey(mazo) {
 }
 
 function comprobarNumeroPaloMazoReceptor(mazoQueMandaLaCarta, mazo_receptor) {
+	//comprobamos los numeros de la carta que soltamos y la carta ya puesta en el mazo, para que cumpla siempre la regla de que la que soltamos tiene que ser una menor si ya esta
+	//el rey puesto y la regla de los palos
 	let ultimaCarta = obtenerUltimaCarta(mazoQueMandaLaCarta);
 	let cartaPuesta = obtenerUltimaCarta(mazo_receptor);
 	let palosRojos = ["cua", "ova"];
@@ -251,7 +253,7 @@ function comprobarNumeroPaloMazoReceptor(mazoQueMandaLaCarta, mazo_receptor) {
 }
 
 // Tapetes
-function cargar_tapete_inicial(mazo) {
+function cargar_tapete_inicial(mazo) {//ponemos las cartas del mazo inicial en el tapete
 	for (var i = 0; i < mazo.length; i++) {
 		var img = document.createElement("img");
 		img.src = mazo[i];
@@ -265,7 +267,7 @@ function cargar_tapete_inicial(mazo) {
 	}
 }
 
-function resetTapete(tapete) {
+function resetTapete(tapete) {//quitamos los elementos imagen (las cartas) del tapete
 	var imagenes = tapete.getElementsByTagName("img");
 	for (var i = imagenes.length - 1; i >= 0; i--) {
 		imagenes[i].remove();
@@ -326,6 +328,7 @@ function allowDrop(event) {
 
 function drop(event) {
 	event.preventDefault();
+	//comprobamos que soltemos la carta o en un tapete o encima de la ultima carta de ese tapete
 	if (event.target == tapete_receptor1 || event.target == tapete_receptor1.lastChild) {
 		if (event.dataTransfer.getData("fromSobrantes") === "true") {
 			desdeSobrantes(mazo_receptor1, tapete_receptor1, cont_receptor1);
@@ -359,7 +362,7 @@ function drop(event) {
 	}
 }
 
-function draggeable() {
+function draggeable() {//funcion que hace la ultima carta del mazo inicial draggable, pa que podamos mover solo la ultima carta del mazo
 	if (mazo_inicial.length > 0) {
 		var imagenes = tapete_inicial.getElementsByTagName("img");
 		var carta = imagenes[imagenes.length - 1];
