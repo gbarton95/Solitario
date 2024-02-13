@@ -68,7 +68,7 @@ function comenzar_juego() {
 
 	llenarMazo();
 	barajar(mazo_inicial);
-	cargar_tapete_inicial(mazo_inicial);
+	cargar_tapete_inicial();
 
 	// Puesta a cero de contadores de mazos
 	set_contador(cont_sobrantes, 0);
@@ -202,7 +202,7 @@ function verificarMazoInicial() {
 	if (parseInt(cont_inicial.innerHTML) === 0) {
 		mazo_inicial = mazo_sobrantes.slice(); // Copiamos el mazo de sobrantes
 		barajar(mazo_inicial);
-		cargar_tapete_inicial(mazo_inicial);
+		cargar_tapete_inicial();
 		mazo_sobrantes.length = 0;
 		resetTapete(tapete_sobrantes);
 		set_contador(cont_sobrantes, 0);
@@ -250,10 +250,10 @@ function comprobarNumeroPaloMazoReceptor(mazoQueMandaLaCarta, mazo_receptor) {
 }
 
 // Tapetes
-function cargar_tapete_inicial(mazo) {//ponemos las cartas del mazo inicial en el tapete
-	for (var i = 0; i < mazo.length; i++) {
+function cargar_tapete_inicial() {//ponemos las cartas del mazo inicial en el tapete
+	for (var i = 0; i < mazo_inicial.length; i++) {
 		var img = document.createElement("img");
-		img.src = mazo[i];
+		img.src = mazo_inicial[i];
 		img.style.position = "absolute";
 		img.style.top = paso * i + "px";
 		img.style.left = paso * i + "px";
