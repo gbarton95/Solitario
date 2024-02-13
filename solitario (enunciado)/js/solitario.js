@@ -99,13 +99,8 @@ function jugada(mazo, tapete, cont) {
 		// Crear la imagen para mostrar la carta en el receptor1
 		var img = document.createElement("img");
 		img.src = mazo[mazo.length - 1];
-		img.style.position = "absolute";
-		img.style.top = "25px";
-		img.style.left = "25px";
-		img.style.width = "50px";
-		img.style.height = "75px";
 		img.draggable = true;
-		img.setAttribute("id","carta");
+		img.setAttribute("class","carta");
 		img.setAttribute("ondragstart", "dragStartSobrantes(event)");
 		tapete.appendChild(img);
 
@@ -120,7 +115,7 @@ function jugada(mazo, tapete, cont) {
 		verificarMazoInicial();
 		victoria();
 	}else//jugada que realizamos si soltamos una carta del mazo inicial a un tapete
-	if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || comprobarNumeroPaloMazoReceptor(mazo_inicial, mazo)) {
+	if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || compatibilidadCarta(mazo_inicial, mazo)) {
 		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
 		var ultimaCarta = mazo_inicial.pop();
 		mazo.push(ultimaCarta);
@@ -128,13 +123,8 @@ function jugada(mazo, tapete, cont) {
 		// Crear la imagen para mostrar la carta en el receptor1
 		var img = document.createElement("img");
 		img.src = mazo[mazo.length - 1];
-		img.style.position = "absolute";
-		img.style.top = "25px";
-		img.style.left = "25px";
-		img.style.width = "50px";
-		img.style.height = "75px";
+		img.setAttribute("class","carta");
 		img.draggable = false;
-
 		tapete.appendChild(img);
 
 		// Actualizar contadores y eliminar carta de mazo_inicial
@@ -152,18 +142,14 @@ function jugada(mazo, tapete, cont) {
 
 function desdeSobrantes(mazo, tapete, cont) {
 	//jugada que realizamos si la carta es desde el mazo de sobrantes
-	if ((mazo.length == 0 && comprobarRey(mazo_sobrantes)) || comprobarNumeroPaloMazoReceptor(mazo_sobrantes, mazo)) {
+	if ((mazo.length == 0 && comprobarRey(mazo_sobrantes)) || compatibilidadCarta(mazo_sobrantes, mazo)) {
 		var ultimaCarta = mazo_sobrantes.pop();
 		mazo.push(ultimaCarta);
 
 		// Crear la imagen para mostrar la carta en el receptor1
 		var img = document.createElement("img");
 		img.src = mazo[mazo.length - 1];
-		img.style.position = "absolute";
-		img.style.top = "25px";
-		img.style.left = "25px";
-		img.style.width = "50px";
-		img.style.height = "75px";
+		img.setAttribute("class","carta");
 		img.draggable = false;
 		tapete.appendChild(img);
 
@@ -233,10 +219,10 @@ function comprobarRey(mazo) {
 	}
 }
 
-function comprobarNumeroPaloMazoReceptor(mazoQueMandaLaCarta, mazo_receptor) {
+function compatibilidadCarta(mazo_origen, mazo_receptor) {
 	//comprobamos los numeros de la carta que soltamos y la carta ya puesta en el mazo, para que cumpla siempre la regla de que la que soltamos tiene que ser una menor si ya esta
 	//el rey puesto y la regla de los palos
-	let ultimaCarta = obtenerUltimaCarta(mazoQueMandaLaCarta);
+	let ultimaCarta = obtenerUltimaCarta(mazo_origen);
 	let cartaPuesta = obtenerUltimaCarta(mazo_receptor);
 	let palosRojos = ["cua", "ova"];
 	let palosGrises = ["cir", "hex"];
@@ -254,12 +240,10 @@ function cargar_tapete_inicial() {//ponemos las cartas del mazo inicial en el ta
 	for (var i = 0; i < mazo_inicial.length; i++) {
 		var img = document.createElement("img");
 		img.src = mazo_inicial[i];
-		img.style.position = "absolute";
 		img.style.top = paso * i + "px";
 		img.style.left = paso * i + "px";
-		img.style.width = "50px";
-		img.style.height = "75px";
 		img.draggable = false;
+		img.setAttribute("class","carta");
 		tapete_inicial.appendChild(img);
 	}
 }
