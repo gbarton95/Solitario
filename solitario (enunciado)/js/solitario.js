@@ -312,6 +312,7 @@ function parar_tiempo() {
 
 function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
+	event.dataTransfer.setData("fromSobrantes", "false");
 }
 
 function dragStartSobrantes(event) {
@@ -350,7 +351,11 @@ function drop(event) {
 			jugada(mazo_receptor4, tapete_receptor4, cont_receptor4);
 		}
 	} else if (event.target == tapete_sobrantes || event.target == tapete_sobrantes.lastChild) {
-		jugadaSobrantes();
+		if(event.dataTransfer.getData("fromSobrantes") === "false"){
+			jugadaSobrantes();
+			//comprobamos que la carta no venga de sobrantes, ya que sino se podría soltar una cara del mazo sobrantes al tapete de sobrantes y pillaria la carta del mazo inicial,
+			//ya que asi esta hecha la jugada
+		}
 	}
 }
 
