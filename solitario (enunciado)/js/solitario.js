@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [9, 10, 11, 12];
+let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -45,7 +45,7 @@ const sonido = new Audio('imagenes/victorySoundEffect.mp3');
 /********** FIN DECLARACIÓN DE VARIABLES GLOBALES **********/
 
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
-function comenzar_juego() {/* */
+function comenzar_juego() {
 
 	//parar victoria
 	pararVictoria();
@@ -91,7 +91,7 @@ function comenzar_juego() {/* */
 }
 
 // MÉTODO PRINCIPAL: desarrollo del juego
-function jugada(mazo, tapete, cont) {/* */
+function jugada(mazo, tapete, cont) {
 	if (mazo == mazo_sobrantes) {
 		var ultimaCarta = mazo_inicial.pop();
 		mazo.push(ultimaCarta);
@@ -135,7 +135,7 @@ function jugada(mazo, tapete, cont) {/* */
 	victoria();
 }
 
-function desdeSobrantes(mazo, tapete, cont) {/* */
+function desdeSobrantes(mazo, tapete, cont) {
 	//jugada que realizamos si la carta es desde el mazo de sobrantes
 	if ((mazo.length == 0 && comprobarRey(mazo_sobrantes)) || compatibilidadCarta(mazo_sobrantes, mazo)) {
 		var ultimaCarta = mazo_sobrantes.pop();
@@ -159,7 +159,7 @@ function desdeSobrantes(mazo, tapete, cont) {/* */
 }
 
 // Mazos
-function llenarMazo() {/**/
+function llenarMazo() {
 	for (let palo of palos) {
 		for (let numero of numeros) {
 			mazo_inicial.push("imagenes/baraja/" + numero + "-" + palo + ".png");
@@ -167,7 +167,7 @@ function llenarMazo() {/**/
 	}
 }
 
-function barajar(mazo) {/* */
+function barajar(mazo) {
 	for (let i = mazo.length - 1; i > 0; i--) {
 		let j = Math.floor(Math.random() * (i + 1));
 
@@ -178,7 +178,7 @@ function barajar(mazo) {/* */
 	}
 }
 
-function verificarMazoInicial() {/* */
+function verificarMazoInicial() {
 	//cada vez que el mazo inicial se queda sin cartas, se pasan las cartas del mazo sobrante al mazo inicial
 	if (parseInt(cont_inicial.innerHTML) === 0) {
 		mazo_inicial = mazo_sobrantes.slice(); // Copiamos el mazo de sobrantes
@@ -192,7 +192,7 @@ function verificarMazoInicial() {/* */
 	}
 }
 
-function obtenerUltimaCarta(mazo) {/* */
+function obtenerUltimaCarta(mazo) {
 	//obtiene el numero y el palo de la ultima carta del mazo que necesitemos
 	let ultimaCarta = mazo[mazo.length - 1];
 	// Extraer el número y el palo de la ruta de la imagen
@@ -204,8 +204,7 @@ function obtenerUltimaCarta(mazo) {/* */
 	return { numero, palo };
 }
 
-function comprobarRey(mazo) {/* */
-	//comprobamos que la primera carta que soltamos en uno de los tapetes sea siempre un rey (esto no se aplica para el tapete de sobrantes)
+function comprobarRey(mazo) {
 	let ultimaCarta = obtenerUltimaCarta(mazo);
 	if (ultimaCarta.numero == 12) {
 		return true;
@@ -214,7 +213,7 @@ function comprobarRey(mazo) {/* */
 	}
 }
 
-function compatibilidadCarta(mazo_origen, mazo_receptor) {/* */
+function compatibilidadCarta(mazo_origen, mazo_receptor) {
 	//comprobamos los numeros de la carta que soltamos y la carta ya puesta en el mazo, para que cumpla siempre la regla de que la que soltamos tiene que ser una menor si ya esta
 	//el rey puesto y la regla de los palos
 	let ultimaCarta = obtenerUltimaCarta(mazo_origen);
@@ -231,7 +230,7 @@ function compatibilidadCarta(mazo_origen, mazo_receptor) {/* */
 }
 
 // Tapetes
-function cargar_tapete_inicial() {/**/ //ponemos las cartas del mazo inicial en el tapete
+function cargar_tapete_inicial() {
 	for (var i = 0; i < mazo_inicial.length; i++) {
 		var img = document.createElement("img");
 		img.src = mazo_inicial[i];
@@ -243,7 +242,7 @@ function cargar_tapete_inicial() {/**/ //ponemos las cartas del mazo inicial en 
 	}
 }
 
-function resetTapete(tapete) {/**///quitamos los elementos imagen (las cartas) del tapete
+function resetTapete(tapete) {
 	var imagenes = tapete.getElementsByTagName("img");
 	for (var i = imagenes.length - 1; i >= 0; i--) {
 		imagenes[i].remove();
@@ -302,7 +301,7 @@ function allowDrop(event) {/* */
 	event.preventDefault();
 }
 
-function drop(event) {/* */
+function drop(event) {
 	event.preventDefault();
 	//comprobamos que soltemos la carta o en un tapete o encima de la ultima carta de ese tapete
 	if (event.target == tapete_receptor1 || event.target == tapete_receptor1.lastChild) {
@@ -338,7 +337,7 @@ function drop(event) {/* */
 	}
 }
 
-function draggeable() { /**///funcion que hace la ultima carta del mazo inicial draggable, pa que podamos mover solo la ultima carta del mazo
+function draggeable() {
 	if (mazo_inicial.length > 0) {
 		var imagenes = tapete_inicial.getElementsByTagName("img");
 		var carta = imagenes[imagenes.length - 1];
@@ -350,7 +349,7 @@ function draggeable() { /**///funcion que hace la ultima carta del mazo inicial 
 
 // MÉTODO PRINCIPAL: finalización del juego
 
-function victoria() {/* */
+function victoria() {
 	if (cont_inicial.innerHTML == 0 && cont_sobrantes.innerHTML == 0) {
 		// Parar el tiempo
 		parar_tiempo();
@@ -363,7 +362,7 @@ function victoria() {/* */
 }
 
 
-function pararVictoria() {/* */
+function pararVictoria() {
 	ventanaVictoria.style.display = 'none';
 	confeti.style.display = 'none';
 
