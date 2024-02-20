@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [11, 12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -100,7 +100,7 @@ function jugada(mazo, tapete, cont) {
 		var img = document.createElement("img");
 		img.src = mazo[mazo.length - 1];
 		img.draggable = true;
-		img.setAttribute("class","carta");
+		img.setAttribute("class", "carta");
 		img.setAttribute("ondragstart", "dragStartSobrantes(event)");
 		tapete.appendChild(img);
 
@@ -110,26 +110,26 @@ function jugada(mazo, tapete, cont) {
 		inc_contador(cont_movimientos);
 		var imagenes = tapete_inicial.getElementsByTagName("img");
 		imagenes[imagenes.length - 1].remove();
-	}else//jugada que realizamos si soltamos una carta del mazo inicial a un tapete
-	if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || compatibilidadCarta(mazo_inicial, mazo)) {
-		//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
-		var ultimaCarta = mazo_inicial.pop();
-		mazo.push(ultimaCarta);
-		// Crear la imagen para mostrar la carta en el receptor1
-		var img = document.createElement("img");
-		img.src = mazo[mazo.length - 1];
-		img.setAttribute("class","carta");
-		img.draggable = false;
-		tapete.appendChild(img);
+	} else//jugada que realizamos si soltamos una carta del mazo inicial a un tapete
+		if ((mazo.length == 0 && comprobarRey(mazo_inicial)) || compatibilidadCarta(mazo_inicial, mazo)) {
+			//meto en el mazo receptor la ultima carta del mazo inicial, borrando a la vez esta carta
+			var ultimaCarta = mazo_inicial.pop();
+			mazo.push(ultimaCarta);
+			// Crear la imagen para mostrar la carta en el receptor1
+			var img = document.createElement("img");
+			img.src = mazo[mazo.length - 1];
+			img.setAttribute("class", "carta");
+			img.draggable = false;
+			tapete.appendChild(img);
 
-		// Actualizar contadores y eliminar carta de mazo_inicial
-		inc_contador(cont);
-		dec_contador(cont_inicial);
-		inc_contador(cont_movimientos);
+			// Actualizar contadores y eliminar carta de mazo_inicial
+			inc_contador(cont);
+			dec_contador(cont_inicial);
+			inc_contador(cont_movimientos);
 
-		var imagenes = tapete_inicial.getElementsByTagName("img");
-		imagenes[imagenes.length - 1].remove();
-	}
+			var imagenes = tapete_inicial.getElementsByTagName("img");
+			imagenes[imagenes.length - 1].remove();
+		}
 	draggeable();
 	verificarMazoInicial();
 	victoria();
@@ -144,7 +144,7 @@ function desdeSobrantes(mazo, tapete, cont) {
 		// Crear la imagen para mostrar la carta en el receptor1
 		var img = document.createElement("img");
 		img.src = mazo[mazo.length - 1];
-		img.setAttribute("class","carta");
+		img.setAttribute("class", "carta");
 		img.draggable = false;
 		tapete.appendChild(img);
 
@@ -237,7 +237,7 @@ function cargar_tapete_inicial() {
 		img.style.top = paso * i + "px";
 		img.style.left = paso * i + "px";
 		img.draggable = false;
-		img.setAttribute("class","carta");
+		img.setAttribute("class", "carta");
 		tapete_inicial.appendChild(img);
 	}
 }
@@ -358,6 +358,13 @@ function victoria() {
 		confeti.style.display = 'block';
 		// Reproducir sonido
 		sonido.play();
+
+		var nombre = prompt("Introduce tu nombre para guardar tu puntuación");
+		if(nombre==""){
+			nombre=null;
+		}
+		guardarPuntuacion(segundos-1, cont_movimientos.innerHTML, nombre);
+
 	}
 }
 
@@ -370,4 +377,30 @@ function pararVictoria() {
 	sonido.pause();
 	sonido.currentTime = 0;  // Reiniciar el tiempo de reproducción al principio
 
+}
+
+function guardarPuntuacion(tiempo, movimientos, nombre) {
+	if(nombre==null){
+		nombre="Anónimo";
+	}
+	// Obtener puntuaciones almacenadas
+	let podio = obtenerPodio();
+
+	// Agregar la nueva puntuación
+	podio.push({ nombre, tiempo, movimientos });
+
+	// Ordenar las puntuaciones (opcional)
+	podio.sort((a, b) => a.tiempo - b.tiempo);
+
+	// Limitar a las 'n' mejores puntuaciones (opcional)
+	const max = 5;
+	podio = podio.slice(0, max);
+
+	// Guardar las puntuaciones actualizadas
+	localStorage.setItem('podio', JSON.stringify(podio));
+	console.log(localStorage.getItem('podio'));
+}
+
+function obtenerPodio() {
+    return JSON.parse(localStorage.getItem('podio')) || [];
 }
