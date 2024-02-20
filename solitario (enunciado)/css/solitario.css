@@ -198,6 +198,7 @@ div.tapetes_inferiores div{
 
   }
 
+/* Para pantallas muy grandes incluimos el podio */
 @media only screen and (min-width: 1400px) {
 	#podio{
 		display: flex;

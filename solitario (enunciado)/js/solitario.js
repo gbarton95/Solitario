@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [11,12];
+let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -46,29 +46,10 @@ const sonido = new Audio('imagenes/victorySoundEffect.mp3');
 
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
 function comenzar_juego() {
-	var tablaPodio = document.getElementById("body");
-	while (tablaPodio.rows.length > 2) {
-		tablaPodio.deleteRow(2); // Eliminar la tercera y las siguientes
-	}
-	var puntuaciones = obtenerPodio();
-	puntuaciones.forEach(function(puntuacion) {
-		var fila = document.createElement("tr");
+	//si hubiera victorias almacenadas o nuevas,
+	actualizarPodio();
 
-		var celdaNombre = document.createElement("td");
-		celdaNombre.textContent = puntuacion.nombre;
-		fila.appendChild(celdaNombre);
-
-		var celdaTiempo = document.createElement("td");
-		celdaTiempo.textContent = puntuacion.tiempo;
-		fila.appendChild(celdaTiempo);
-
-		var celdaMovimientos = document.createElement("td");
-		celdaMovimientos.textContent = puntuacion.movimientos;
-		fila.appendChild(celdaMovimientos);
-
-		tablaPodio.appendChild(fila);
-	});
-	//parar victoria
+	//si estuviera en pantalla,
 	pararVictoria();
 
 	//resetear tapetes
@@ -106,9 +87,8 @@ function comenzar_juego() {
 	// Hacer la última carta del tapete draggeable
 	draggeable();
 
-	//comprobamos si el mazo inicial esta vacio y metemos las cartas del mazo sobrante al inicial
+	// Si el mazo inicial esta vacio y hay cartas en el mazo sobrante, las intercambiamos
 	verificarMazoInicial();
-
 }
 
 // MÉTODO PRINCIPAL: desarrollo del juego
@@ -235,13 +215,11 @@ function comprobarRey(mazo) {
 }
 
 function compatibilidadCarta(mazo_origen, mazo_receptor) {
-	//comprobamos los numeros de la carta que soltamos y la carta ya puesta en el mazo, para que cumpla siempre la regla de que la que soltamos tiene que ser una menor si ya esta
-	//el rey puesto y la regla de los palos
+	//Comprobamos que la carta que soltamos sobre un mazo sea un número menor y de distinto palo
 	let ultimaCarta = obtenerUltimaCarta(mazo_origen);
 	let cartaPuesta = obtenerUltimaCarta(mazo_receptor);
 	let palosRojos = ["cua", "ova"];
 	let palosGrises = ["cir", "hex"];
-	//falta comprobar los palos
 	if (ultimaCarta.numero == cartaPuesta.numero - 1) {
 		if ((palosRojos.includes(ultimaCarta.palo) && palosGrises.includes(cartaPuesta.palo)) || (palosGrises.includes(ultimaCarta.palo) && palosRojos.includes(cartaPuesta.palo)))
 			return true;
@@ -280,13 +258,13 @@ function resetTapete(tapete) {
 }
 
 // Contadores
-function inc_contador(contador) {/* */
+function inc_contador(contador) {
 	contador.innerHTML = parseInt(contador.innerHTML) + 1;
 }
-function dec_contador(contador) {/* */
+function dec_contador(contador) {
 	contador.innerHTML = parseInt(contador.innerHTML) - 1;
 }
-function set_contador(contador, valor) {/* */
+function set_contador(contador, valor) {
 	contador.innerHTML = valor;
 }
 
@@ -308,7 +286,7 @@ function arrancar_tiempo() {/* */
 	temporizador = setInterval(hms, 1000);
 }
 
-function parar_tiempo() {/* */
+function parar_tiempo() {
 	if (temporizador) {
 		clearInterval(temporizador);
 		temporizador = null;
@@ -317,17 +295,17 @@ function parar_tiempo() {/* */
 
 // Drag & Drop
 
-function dragStart(event) {/**/
+function dragStart(event) {
 	event.dataTransfer.setData("Text", event.target.id);
 	event.dataTransfer.setData("fromSobrantes", "false");
 }
 
-function dragStartSobrantes(event) {/* */
+function dragStartSobrantes(event) {
 	event.dataTransfer.setData("Text", event.target.id);
 	event.dataTransfer.setData("fromSobrantes", "true");
 }
 
-function allowDrop(event) {/* */
+function allowDrop(event) {
 	event.preventDefault();
 }
 
@@ -361,8 +339,9 @@ function drop(event) {
 	} else if (event.target == tapete_sobrantes || event.target == tapete_sobrantes.lastChild) {
 		if (event.dataTransfer.getData("fromSobrantes") === "false") {
 			jugada(mazo_sobrantes, tapete_sobrantes, cont_sobrantes);
-			//comprobamos que la carta no venga de sobrantes, ya que sino se podría soltar una cara del mazo sobrantes al tapete de sobrantes y pillaria la carta del mazo inicial,
-			//ya que asi esta hecha la jugada
+			//comprobamos que la carta NO venga de sobrantes, ya que el método sólo entiende
+			//que al soltar una carta sobre este mazo se obtenga la última del mazo inicial.
+			//De ahí la necesidad de la jugada "desdeSobrantes()"
 		}
 	}
 }
@@ -390,9 +369,9 @@ function victoria() {
 		sonido.play();
 
 		do{
-			var nombre = prompt("Introduce un nombre menor de 10 caracteres para guardar tu puntuación");
-			if (nombre == "") {
-				nombre = null;
+			var nombre = prompt("Introduce un nombre (menos de 10 letras) para guardar tu puntuación");
+			if(nombre.length==0){
+				nombre = "Anónimo";
 			}
 		}while(nombre.length>=10)
 
@@ -412,9 +391,6 @@ function pararVictoria() {
 }
 
 function guardarPuntuacion(tiempo, movimientos, nombre) {
-	if (nombre == null) {
-		nombre = "Anónimo";
-	}
 	let podio = obtenerPodio();
 
 	podio.push({ nombre, tiempo, movimientos });
@@ -431,4 +407,29 @@ function guardarPuntuacion(tiempo, movimientos, nombre) {
 
 function obtenerPodio() {
 	return JSON.parse(localStorage.getItem('podio')) || [];
+}
+
+function actualizarPodio() {
+	var tablaPodio = document.getElementById("body");
+	while (tablaPodio.rows.length > 2) {
+		tablaPodio.deleteRow(2); // Eliminar las filas que no sean el título y los headers
+	}
+	var puntuaciones = obtenerPodio();
+	puntuaciones.forEach(function (puntuacion) {
+		var fila = document.createElement("tr");
+
+		var celdaNombre = document.createElement("td");
+		celdaNombre.textContent = puntuacion.nombre;
+		fila.appendChild(celdaNombre);
+
+		var celdaTiempo = document.createElement("td");
+		celdaTiempo.textContent = puntuacion.tiempo;
+		fila.appendChild(celdaTiempo);
+
+		var celdaMovimientos = document.createElement("td");
+		celdaMovimientos.textContent = puntuacion.movimientos;
+		fila.appendChild(celdaMovimientos);
+
+		tablaPodio.appendChild(fila);
+	});
 }
