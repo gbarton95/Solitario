@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [9,10,11,12];
+let numeros = [12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -46,6 +46,30 @@ const sonido = new Audio('imagenes/victorySoundEffect.mp3');
 
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
 function comenzar_juego() {
+	var podio = obtenerPodio();
+	if(podio){
+		var tabla = document.getElementById("podio");
+		for(var i = 0; i<podio.length;i++){
+			// Crear una nueva fila
+			var fila = document.createElement("tr");
+
+			// Crear celdas para cada propiedad del objeto puntaje
+			var celdaNombre = document.createElement("td");
+			celdaNombre.textContent = podio[i][0];
+			fila.appendChild(celdaNombre);
+
+			var celdaTiempo = document.createElement("td");
+			celdaTiempo.textContent = podio[i][1];
+			fila.appendChild(celdaTiempo);
+
+			var celdaMovimientos = document.createElement("td");
+			celdaMovimientos.textContent = podio[i][2];
+			fila.appendChild(celdaMovimientos);
+
+			// Agregar la fila a la tabla
+			tabla.appendChild(fila);
+		  };
+	}
 		//parar victoria
 		pararVictoria();
 
