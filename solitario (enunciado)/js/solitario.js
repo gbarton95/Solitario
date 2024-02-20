@@ -389,10 +389,13 @@ function victoria() {
 		// Reproducir sonido
 		sonido.play();
 
-		var nombre = prompt("Introduce tu nombre para guardar tu puntuación");
-		if (nombre == "") {
-			nombre = null;
-		}
+		do{
+			var nombre = prompt("Introduce un nombre menor de 10 caracteres para guardar tu puntuación");
+			if (nombre == "") {
+				nombre = null;
+			}
+		}while(nombre.length>=10)
+
 		guardarPuntuacion(segundos - 1, cont_movimientos.innerHTML, nombre);
 	}
 }
