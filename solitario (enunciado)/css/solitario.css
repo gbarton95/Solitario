@@ -4,6 +4,12 @@ h1#titulo {
 	color: #E65014;
 }
 
+/* Contenido de la página centrado */
+div.central {
+	max-width: 1000px;
+	margin: auto;
+}
+
 /* Centrado de los marcadores de tiempo y movimientos */
 h2#marcadores {
 	max-width: 800px;
@@ -22,54 +28,33 @@ div#mesa {
 	background-repeat: no-repeat;
 }
 
-/* Tapetes */
+/**************** Tapetes ***************/
 div.tapete {
 	display: inline-block;
 	position: relative;
 	margin: 10px;
 }
-
-/* Contadores */
-.contador {
-	position: absolute;
-	bottom: 0px;
-	right: 3px;
-	height: fit-content;
-	width: fit-content;
-}
-
-/* Dimensiones y color de fondo para el tapete inicial */
 div.tapete#inicial {
 	width: 340px;
 	height: 340px;
 }
-
-/* Dimensiones para todos los tapetes salvo el inicial */
 div.tapete:not(#inicial) {
 	height: 125px;
 	width: 100px;
 }
-
-/* Color de fondo para el tapete de las cartas sobrantes */
 div.tapete#sobrantes {
 	background-color: lightblue;
 }
 
-/* Color de fondo de los tapetes receptores */
 div.tapete.receptor {
 	background-color: lightgreen;
 }
 
-/* Bloque de tapetes receptores */
 div.tapetes_inferiores div{
 	border: 1px solid rgb(3, 54, 3);
 	border-radius: 5px;
 }
-
-div.central {
-	max-width: 1000px;
-	margin: auto;
-}
+/*****************************************/
 
 /* Cartas */
 .carta {
@@ -79,6 +64,30 @@ div.central {
 	width: 50px;
 	height: 75px;
 }
+
+/* Contadores de las cartas*/
+.contador {
+	position: absolute;
+	bottom: 0px;
+	right: 3px;
+	height: fit-content;
+	width: fit-content;
+}
+
+/********* Efectos cartas **********/
+#carta:hover {
+	transition: transform 0.3s ease;
+	transform: scale(1.1)
+}
+
+#carta:hover, #carta:not(:hover) {
+	transition: transform 0.3s ease;
+}
+
+#inicial img {
+	margin-top: 30px;
+}
+/***********************************/
 
 /* Ventana de victoria*/
 #ventanaVictoria {
@@ -105,6 +114,7 @@ div.central {
   	transform: translate(-50%, -50%);
 }
 
+/* Botón de reset */
 #reset {
 	width: 200px;
 	height: 50px;
@@ -114,27 +124,21 @@ div.central {
 	z-index: 4;
 }
 
+/* Botón de reset */
 #contador_inicial {
 	background-color: white;
 	border-radius: 50%;
 	padding: 5px;
 }
 
-#carta:hover {
-	transition: transform 0.3s ease;
-	transform: scale(1.1)
-}
-
-#carta:hover, #carta:not(:hover) {
-	transition: transform 0.3s ease;
-}
-
-#inicial img {
-	margin-top: 30px;
-}
+/* Podio que sólo se verá en pantallas grandes*/
+	#podio {
+		opacity: 0; /* Inicialmente transparente */
+		transition: opacity 3s ease;
+	}
 
 /* Para móviles y pantallas pequeñas */
-@media only screen and (max-width: 700px) { /*540px*/
+@media only screen and (max-width: 700px) {
 	html, body {
 		padding: 0;
 		margin: 0;
@@ -188,4 +192,38 @@ div.central {
 		margin-top: 30px;
 	}
 
+	#podio {
+		display: none;
+	}
+
   }
+
+@media only screen and (min-width: 1600px) {
+	#podio{
+		display: flex;
+		position: absolute;
+		border: 6px solid red;
+		border-style: dotted;
+		background-color: lightgreen;
+		border-radius: 10px;
+		padding: 10px;
+		font-size: large;
+		justify-content: center;
+		min-width: 400px;
+		top: 0;
+		margin: 50px;
+		opacity: 1;
+	}
+	#podio th, #podio td {
+		padding: 10px;
+	}
+
+	#podio td {
+		font-style: italic;
+		text-align: left;
+	}
+
+	#podiotxt {
+		text-align: center;
+	}
+}
