@@ -41,12 +41,16 @@
 		<button id="reset" class="btn btn-danger" onclick="comenzar_juego()">Reiniciar</button>
 	</div>
 	<table id="podio">
-		<tr><th colspan="4" class="podiotxt">&#x235f;&#x235f;&#x235f;PODIO&#x235f;&#x235f;&#x235f;</th></tr>
-		<tr>
-			<th>Nombre</th>
-			<th>Tiempo</th>
-			<th>Movimientos</th>
-		</tr>
+		<tbody id="body">
+			<tr>
+				<th colspan="4" class="podiotxt">&#x235f;&#x235f;&#x235f;PODIO&#x235f;&#x235f;&#x235f;</th>
+			</tr>
+			<tr id="titulosTabla">
+				<th>Nombre</th>
+				<th>Tiempo</th>
+				<th>Movimientos</th>
+			</tr>
+		</tbody>
 	</table>
 	<script src="js/solitario.js"></script>
 </body>

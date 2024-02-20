@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [12];
+let numeros = [11,12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -46,70 +46,68 @@ const sonido = new Audio('imagenes/victorySoundEffect.mp3');
 
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
 function comenzar_juego() {
-	var podio = obtenerPodio();
-	if(podio){
-		var tabla = document.getElementById("podio");
-		for(var i = 0; i<podio.length;i++){
-			// Crear una nueva fila
-			var fila = document.createElement("tr");
-
-			// Crear celdas para cada propiedad del objeto puntaje
-			var celdaNombre = document.createElement("td");
-			celdaNombre.textContent = podio[i][0];
-			fila.appendChild(celdaNombre);
-
-			var celdaTiempo = document.createElement("td");
-			celdaTiempo.textContent = podio[i][1];
-			fila.appendChild(celdaTiempo);
-
-			var celdaMovimientos = document.createElement("td");
-			celdaMovimientos.textContent = podio[i][2];
-			fila.appendChild(celdaMovimientos);
-
-			// Agregar la fila a la tabla
-			tabla.appendChild(fila);
-		  };
+	var tablaPodio = document.getElementById("body");
+	while (tablaPodio.rows.length > 2) {
+		tablaPodio.deleteRow(2); // Eliminar la tercera y las siguientes
 	}
-		//parar victoria
-		pararVictoria();
+	var puntuaciones = obtenerPodio();
+	puntuaciones.forEach(function(puntuacion) {
+		var fila = document.createElement("tr");
 
-		//resetear tapetes
-		resetTapete(tapete_inicial);
-		resetTapete(tapete_receptor1);
-		resetTapete(tapete_receptor2);
-		resetTapete(tapete_receptor3);
-		resetTapete(tapete_receptor4);
-		resetTapete(tapete_sobrantes);
+		var celdaNombre = document.createElement("td");
+		celdaNombre.textContent = puntuacion.nombre;
+		fila.appendChild(celdaNombre);
 
-		//resetear mazos
-		mazo_inicial.length = 0;
-		mazo_receptor1.length = 0;
-		mazo_receptor2.length = 0;
-		mazo_receptor3.length = 0;
-		mazo_receptor4.length = 0;
-		mazo_sobrantes.length = 0;
+		var celdaTiempo = document.createElement("td");
+		celdaTiempo.textContent = puntuacion.tiempo;
+		fila.appendChild(celdaTiempo);
 
-		llenarMazo();
-		barajar(mazo_inicial);
-		cargar_tapete(mazo_inicial, tapete_inicial);
+		var celdaMovimientos = document.createElement("td");
+		celdaMovimientos.textContent = puntuacion.movimientos;
+		fila.appendChild(celdaMovimientos);
 
-		// Puesta a cero de contadores de mazos
-		set_contador(cont_sobrantes, 0);
-		set_contador(cont_receptor1, 0);
-		set_contador(cont_receptor2, 0);
-		set_contador(cont_receptor3, 0);
-		set_contador(cont_receptor4, 0);
-		set_contador(cont_movimientos, 0);
-		set_contador(cont_inicial, mazo_inicial.length)
+		tablaPodio.appendChild(fila);
+	});
+	//parar victoria
+	pararVictoria();
 
-		// Arrancar el conteo de tiempo
-		arrancar_tiempo();
+	//resetear tapetes
+	resetTapete(tapete_inicial);
+	resetTapete(tapete_receptor1);
+	resetTapete(tapete_receptor2);
+	resetTapete(tapete_receptor3);
+	resetTapete(tapete_receptor4);
+	resetTapete(tapete_sobrantes);
 
-		// Hacer la última carta del tapete draggeable
-		draggeable();
+	//resetear mazos
+	mazo_inicial.length = 0;
+	mazo_receptor1.length = 0;
+	mazo_receptor2.length = 0;
+	mazo_receptor3.length = 0;
+	mazo_receptor4.length = 0;
+	mazo_sobrantes.length = 0;
 
-		//comprobamos si el mazo inicial esta vacio y metemos las cartas del mazo sobrante al inicial
-		verificarMazoInicial();
+	llenarMazo();
+	barajar(mazo_inicial);
+	cargar_tapete(mazo_inicial, tapete_inicial);
+
+	// Puesta a cero de contadores de mazos
+	set_contador(cont_sobrantes, 0);
+	set_contador(cont_receptor1, 0);
+	set_contador(cont_receptor2, 0);
+	set_contador(cont_receptor3, 0);
+	set_contador(cont_receptor4, 0);
+	set_contador(cont_movimientos, 0);
+	set_contador(cont_inicial, mazo_inicial.length)
+
+	// Arrancar el conteo de tiempo
+	arrancar_tiempo();
+
+	// Hacer la última carta del tapete draggeable
+	draggeable();
+
+	//comprobamos si el mazo inicial esta vacio y metemos las cartas del mazo sobrante al inicial
+	verificarMazoInicial();
 
 }
 

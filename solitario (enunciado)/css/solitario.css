@@ -198,7 +198,7 @@ div.tapetes_inferiores div{
 
   }
 
-@media only screen and (min-width: 1600px) {
+@media only screen and (min-width: 1400px) {
 	#podio{
 		display: flex;
 		position: absolute;
@@ -209,7 +209,6 @@ div.tapetes_inferiores div{
 		padding: 10px;
 		font-size: large;
 		justify-content: center;
-		min-width: 400px;
 		top: 0;
 		margin: 50px;
 		opacity: 1;
@@ -221,7 +220,7 @@ div.tapetes_inferiores div{
 
 	#podio td {
 		font-style: italic;
-		text-align: left;
+		text-align: right;
 	}
 
 	.podiotxt {
