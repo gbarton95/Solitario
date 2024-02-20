@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [11, 12];
+let numeros = [9,10,11,12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -46,47 +46,46 @@ const sonido = new Audio('imagenes/victorySoundEffect.mp3');
 
 // MÉTODO PRINCIPAL: comenzar/resetear el juego
 function comenzar_juego() {
+		//parar victoria
+		pararVictoria();
 
-	//parar victoria
-	pararVictoria();
+		//resetear tapetes
+		resetTapete(tapete_inicial);
+		resetTapete(tapete_receptor1);
+		resetTapete(tapete_receptor2);
+		resetTapete(tapete_receptor3);
+		resetTapete(tapete_receptor4);
+		resetTapete(tapete_sobrantes);
 
-	//resetear tapetes
-	resetTapete(tapete_inicial);
-	resetTapete(tapete_receptor1);
-	resetTapete(tapete_receptor2);
-	resetTapete(tapete_receptor3);
-	resetTapete(tapete_receptor4);
-	resetTapete(tapete_sobrantes);
+		//resetear mazos
+		mazo_inicial.length = 0;
+		mazo_receptor1.length = 0;
+		mazo_receptor2.length = 0;
+		mazo_receptor3.length = 0;
+		mazo_receptor4.length = 0;
+		mazo_sobrantes.length = 0;
 
-	//resetear mazos
-	mazo_inicial.length = 0;
-	mazo_receptor1.length = 0;
-	mazo_receptor2.length = 0;
-	mazo_receptor3.length = 0;
-	mazo_receptor4.length = 0;
-	mazo_sobrantes.length = 0;
+		llenarMazo();
+		barajar(mazo_inicial);
+		cargar_tapete(mazo_inicial, tapete_inicial);
 
-	llenarMazo();
-	barajar(mazo_inicial);
-	cargar_tapete_inicial();
+		// Puesta a cero de contadores de mazos
+		set_contador(cont_sobrantes, 0);
+		set_contador(cont_receptor1, 0);
+		set_contador(cont_receptor2, 0);
+		set_contador(cont_receptor3, 0);
+		set_contador(cont_receptor4, 0);
+		set_contador(cont_movimientos, 0);
+		set_contador(cont_inicial, mazo_inicial.length)
 
-	// Puesta a cero de contadores de mazos
-	set_contador(cont_sobrantes, 0);
-	set_contador(cont_receptor1, 0);
-	set_contador(cont_receptor2, 0);
-	set_contador(cont_receptor3, 0);
-	set_contador(cont_receptor4, 0);
-	set_contador(cont_movimientos, 0);
-	set_contador(cont_inicial, mazo_inicial.length)
+		// Arrancar el conteo de tiempo
+		arrancar_tiempo();
 
-	// Arrancar el conteo de tiempo
-	arrancar_tiempo();
+		// Hacer la última carta del tapete draggeable
+		draggeable();
 
-	// Hacer la última carta del tapete draggeable
-	draggeable();
-
-	//comprobamos si el mazo inicial esta vacio y metemos las cartas del mazo sobrante al inicial
-	verificarMazoInicial();
+		//comprobamos si el mazo inicial esta vacio y metemos las cartas del mazo sobrante al inicial
+		verificarMazoInicial();
 
 }
 
@@ -183,7 +182,7 @@ function verificarMazoInicial() {
 	if (parseInt(cont_inicial.innerHTML) === 0) {
 		mazo_inicial = mazo_sobrantes.slice(); // Copiamos el mazo de sobrantes
 		barajar(mazo_inicial);
-		cargar_tapete_inicial();
+		cargar_tapete(mazo_inicial, tapete_inicial);
 		mazo_sobrantes.length = 0;
 		resetTapete(tapete_sobrantes);
 		set_contador(cont_sobrantes, 0);
@@ -230,15 +229,24 @@ function compatibilidadCarta(mazo_origen, mazo_receptor) {
 }
 
 // Tapetes
-function cargar_tapete_inicial() {
-	for (var i = 0; i < mazo_inicial.length; i++) {
-		var img = document.createElement("img");
-		img.src = mazo_inicial[i];
-		img.style.top = paso * i + "px";
-		img.style.left = paso * i + "px";
-		img.draggable = false;
-		img.setAttribute("class", "carta");
-		tapete_inicial.appendChild(img);
+function cargar_tapete(mazo, tapete) {
+	if (mazo_inicial == mazo) {
+		for (var i = 0; i < mazo.length; i++) {
+			var img = document.createElement("img");
+			img.src = mazo[i];
+			img.style.top = paso * i + "px";
+			img.style.left = paso * i + "px";
+			img.draggable = false;
+			img.setAttribute("class", "carta");
+			tapete.appendChild(img);
+		}
+	} else {
+		for (var i = 0; i < mazo.length; i++) {
+			var img = document.createElement("img");
+			img.src = mazo[i];
+			img.setAttribute("class", "carta");
+			tapete.appendChild(img);
+		}
 	}
 }
 
@@ -360,11 +368,10 @@ function victoria() {
 		sonido.play();
 
 		var nombre = prompt("Introduce tu nombre para guardar tu puntuación");
-		if(nombre==""){
-			nombre=null;
+		if (nombre == "") {
+			nombre = null;
 		}
-		guardarPuntuacion(segundos-1, cont_movimientos.innerHTML, nombre);
-
+		guardarPuntuacion(segundos - 1, cont_movimientos.innerHTML, nombre);
 	}
 }
 
@@ -380,19 +387,15 @@ function pararVictoria() {
 }
 
 function guardarPuntuacion(tiempo, movimientos, nombre) {
-	if(nombre==null){
-		nombre="Anónimo";
+	if (nombre == null) {
+		nombre = "Anónimo";
 	}
-	// Obtener puntuaciones almacenadas
 	let podio = obtenerPodio();
 
-	// Agregar la nueva puntuación
 	podio.push({ nombre, tiempo, movimientos });
 
-	// Ordenar las puntuaciones (opcional)
 	podio.sort((a, b) => a.tiempo - b.tiempo);
 
-	// Limitar a las 'n' mejores puntuaciones (opcional)
 	const max = 5;
 	podio = podio.slice(0, max);
 
@@ -402,5 +405,5 @@ function guardarPuntuacion(tiempo, movimientos, nombre) {
 }
 
 function obtenerPodio() {
-    return JSON.parse(localStorage.getItem('podio')) || [];
+	return JSON.parse(localStorage.getItem('podio')) || [];
 }
