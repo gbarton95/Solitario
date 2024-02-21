@@ -3,7 +3,7 @@
 let palos = ["ova", "cua", "hex", "cir"];
 
 // Array de número de cartas:
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [11, 12];
 
 // Paso (top y left) en pixeles:
 let paso = 5;
@@ -370,7 +370,7 @@ function victoria() {
 
 		do{
 			var nombre = prompt("Introduce un nombre (menos de 10 letras) para guardar tu puntuación");
-			if(nombre.length==0){
+			if(nombre.length==0||nombre==null){
 				nombre = "Anónimo";
 			}
 		}while(nombre.length>=10)
